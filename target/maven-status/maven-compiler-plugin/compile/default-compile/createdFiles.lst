@@ -1,0 +1,6 @@
+br\senac\conexaobd\Conexao.class
+br\senac\conexaobd\servlet\ClienteServlet.class
+br\senac\conexaobd\dao\ClienteDAO.class
+br\senac\conexaobd\entidades\Cliente.class
+br\senac\conexaobd\servlet\CadastroClienteServlet.class
+br\senac\conexaobd\servlet\ListarClienteServlet.class
