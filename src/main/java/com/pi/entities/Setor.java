@@ -15,10 +15,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Endereco implements Serializable{
-    private String logradouro;
-    private String numero;
-    private String bairro;
-    private String cidade;
-    private Long cep;
+public class Setor implements Serializable{
+    private Long id;
+    private String nomeSetor;
 }

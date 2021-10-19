@@ -6,6 +6,7 @@
 package com.pi.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +16,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Endereco implements Serializable{
-    private String logradouro;
-    private String numero;
-    private String bairro;
-    private String cidade;
-    private Long cep;
+public class Pedido implements Serializable{
+    private Long id;
+    private List<ItemPedido> itensPedido;
+    
+    public Double vatorTotalPedido(){
+        double total = 0;
+        for(ItemPedido itens : this.itensPedido){
+            total += itens.subTotal();
+        }
+        return total;
+    }
 }

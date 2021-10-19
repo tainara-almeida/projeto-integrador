@@ -6,6 +6,7 @@
 package com.pi.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +16,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Endereco implements Serializable{
-    private String logradouro;
-    private String numero;
-    private String bairro;
-    private String cidade;
-    private Long cep;
+public class Funcionario implements Serializable{
+    private Long id;
+    private Long cpf;
+    private Long codigoEmpresa;
+    private String nome;
+    private String email;
+    private Date dataNascimento;
+    private Long telefone;
+    private Endereco endereco;
+    private Setor setor;
+    private String senha;
 }

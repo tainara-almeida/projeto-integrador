@@ -5,6 +5,7 @@
  */
 package com.pi.entities;
 
+import com.pi.enuns.Categoria;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,10 +16,12 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Endereco implements Serializable{
-    private String logradouro;
-    private String numero;
-    private String bairro;
-    private String cidade;
-    private Long cep;
+public class Produto implements Serializable{
+    private Categoria categoria;
+    private Long codigoBarras;
+    private String nome;
+    private String descricao;
+    private String classificacaoIdade;
+    private Double precoUnitario;
+    private String imgUrl;
 }

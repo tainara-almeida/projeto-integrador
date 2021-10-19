@@ -6,13 +6,23 @@
 package com.pi.entities;
 
 import java.io.Serializable;
+import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author andrew.dornelas
  */
+@Getter
+@Setter
 public class Cliente implements Serializable{
-    private Long ID;
-    
-    
+    private Long id;
+    private Long cpf;
+    private String nome;
+    private String email;
+    private Date dataNascimento;
+    private Long telefone;
+    private Endereco endereco;
+    private String senha;
 }
