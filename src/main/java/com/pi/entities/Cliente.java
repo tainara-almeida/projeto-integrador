@@ -17,12 +17,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Cliente implements Serializable{
-    private Long id;
-    private Long cpf;
+    private Integer id;
+    private Integer cpf;
     private String nome;
     private String email;
     private Date dataNascimento;
-    private Long telefone;
+    private Integer telefone;
     private Endereco endereco;
     private String senha;
 }

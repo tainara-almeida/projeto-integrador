@@ -8,6 +8,7 @@ package com.pi.dao;
 import com.pi.conexao.Conexao;
 import com.pi.entities.Cliente;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,15 +26,17 @@ public class ClienteDAO {
         
         public static void inserirCliente(Cliente cliente) throws SQLException {
             boolean ok = true;
-            String query = "insert into cliente(nome,cpf,email) values (?,?,?)";
+            String query = "insert into cliente(nome, cpf, email, dataNascimento, telefone, senha) values (?,?,?,?,?,?)";
             Connection con = Conexao.getConexao();
             PreparedStatement ps;
             ps = con.prepareStatement(query);
             ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getCpf());
+            ps.setInt(2, cliente.getCpf());
             ps.setString(3, cliente.getEmail());
+            ps.setDate(4, (Date) cliente.getDataNascimento());
+            ps.setInt(5, cliente.getTelefone());
+            ps.setString(6, cliente.getSenha());
             ps.execute();
-    
         }
     
        public static List<Cliente> getClientes() {
@@ -48,10 +51,18 @@ public class ClienteDAO {
                    Cliente cliente = new Cliente();
                    String nome = rs.getString("nome");
                    String email = rs.getString("email");
-                   String cpf = rs.getString("cpf");
+                   Integer cpf = rs.getInt("cpf");
+                   Integer id = rs.getInt("id");
+                   Date dataNascimento = rs.getDate("dataNascimento");
+                   Integer telefone = rs.getInt("telefone");
+                   String senha = rs.getString("senha");
                    cliente.setNome(nome);
                    cliente.setEmail(email);
                    cliente.setCpf(cpf);
+                   cliente.setDataNascimento(dataNascimento);
+                   cliente.setId(id);
+                   cliente.setSenha(senha);
+                   cliente.setTelefone(telefone);
                    clientes.add(cliente);
                }
            } catch (SQLException ex) {
@@ -61,22 +72,29 @@ public class ClienteDAO {
            
        }
        
-       public static Cliente getClientePorCPF(String cpf) {
-           Cliente cliente = null;
+       public static Cliente getClientePorCPF(Integer cpf) {
            String query = "select * from cliente where cpf=?";
-           
+           Cliente cliente = null;
            Connection con = Conexao.getConexao();
            try {
                PreparedStatement ps = con.prepareStatement(query);
-               ps.setString(1, cpf);
+               ps.setInt(1, cpf);
                ResultSet rs = ps.executeQuery();
                while (rs.next()) {
                    cliente = new Cliente();
                    String nome = rs.getString("nome");
                    String email = rs.getString("email");
+                   Integer id = rs.getInt("id");
+                   Date dataNascimento = rs.getDate("dataNascimento");
+                   Integer telefone = rs.getInt("telefone");
+                   String senha = rs.getString("senha");
                    cliente.setNome(nome);
                    cliente.setEmail(email);
                    cliente.setCpf(cpf);
+                   cliente.setDataNascimento(dataNascimento);
+                   cliente.setId(id);
+                   cliente.setSenha(senha);
+                   cliente.setTelefone(telefone);
                }
            } catch (SQLException ex) {
                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,10 +116,18 @@ public class ClienteDAO {
                    Cliente cliente = new Cliente();
                    String nome = rs.getString("nome");
                    String email = rs.getString("email");
-                   String cpf = rs.getString("cpf");
+                   Integer id = rs.getInt("id");
+                   Integer cpf = rs.getInt("cpf");
+                   Date dataNascimento = rs.getDate("dataNascimento");
+                   Integer telefone = rs.getInt("telefone");
+                   String senha = rs.getString("senha");
                    cliente.setNome(nome);
                    cliente.setEmail(email);
                    cliente.setCpf(cpf);
+                   cliente.setDataNascimento(dataNascimento);
+                   cliente.setId(id);
+                   cliente.setSenha(senha);
+                   cliente.setTelefone(telefone);
                    clientes.add(cliente);
                }
            } catch (SQLException ex) {
@@ -134,7 +160,7 @@ public class ClienteDAO {
                 PreparedStatement ps = con.prepareStatement(query);
                 ps.setString(1, cliente.getNome());
                 ps.setString(2, cliente.getEmail());
-                ps.setString(3, cliente.getCpf());
+                ps.setInt(3, cliente.getCpf());
                 ps.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
