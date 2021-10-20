@@ -61,17 +61,6 @@ import javax.servlet.http.HttpServletResponse;
          }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cpf = req.getParameter("cpfUsuario");
-        String operacao = req.getParameter("ope");
-            clienteDao.deletarCliente(cpf);
-            resp.sendRedirect(req.getContextPath() + "/cliente/ListarClienteServlet");
-        
-
-
-    }
-    
     public Date formataData(String data) throws ParseException{
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date dataFormatada = formato.parse(data);

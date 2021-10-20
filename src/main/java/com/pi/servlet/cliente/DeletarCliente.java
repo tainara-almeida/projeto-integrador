@@ -6,6 +6,7 @@
 package com.pi.servlet.cliente;
 
 import com.pi.dao.ClienteDao;
+import com.pi.entities.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -27,6 +28,9 @@ public class DeletarCliente extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cpf = req.getParameter("cpfUsuario");
         String operacao = req.getParameter("ope");
+        
+        clienteDao.getClientePorCPF(Integer.parseInt(cpf));
+        
         clienteDao.deletarCliente(cpf);
         resp.sendRedirect(req.getContextPath() + "/cliente/ListarClienteServlet");
     }
