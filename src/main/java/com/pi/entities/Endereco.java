@@ -1,0 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.pi.entities;
+
+import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ *
+ * @author andrew.dornelas
+ */
+@Getter
+@Setter
+public class Endereco implements Serializable{
+    private String logradouro;
+    private String numero;
+    private String bairro;
+    private String cidade;
+    private Long cep;
+}
