@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 public class Empresa implements Serializable {
     private Long id;
-    private Endereco endereco;
+    private String endereco;
     private String nome;
     private Long cnpj;
 }
