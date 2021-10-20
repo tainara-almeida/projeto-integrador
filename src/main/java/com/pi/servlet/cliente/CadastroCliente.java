@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pi.servlet;
+package com.pi.servlet.cliente;
 
 import com.pi.dao.ClienteDao;
 import com.pi.entities.Cliente;
@@ -33,9 +33,6 @@ import javax.servlet.http.HttpServletResponse;
             throws ServletException, IOException {
         
         try {
-            
-            String operacao = request.getParameter("ope");
-            
             String nome = request.getParameter("nomeCliente");
             String email = request.getParameter("emailCliente");
             String cpf = request.getParameter("cpfCliente");
@@ -52,33 +49,25 @@ import javax.servlet.http.HttpServletResponse;
             cliente.setTelefone(Integer.parseInt(telefone));
             cliente.setEndereco(endereco);
             cliente.setSenha(senha);
-            try {
-                if ("1".equals(operacao)) {
-                    clienteDao.atualizarCliente(cliente);
-                } else {
-                    clienteDao.inserirCliente(cliente);
-                }
+            
+            boolean inserirCliente = clienteDao.inserirCliente(cliente);
+            if(inserirCliente){
                 response.sendRedirect(request.getContextPath()+"/uteis/sucesso.jsp");
-            } catch(SQLException ex) {
-                response.sendRedirect(request.getContextPath()+"/uteis/erro.jsp");
             }
         } catch(ParseException ex) {
+             response.sendRedirect(request.getContextPath()+"/uteis/erro.jsp");
+        } catch (SQLException ex) {
              Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cpf = req.getParameter("cpfUsuario");
         String operacao = req.getParameter("ope");
-        if ("1".equals(operacao)) {
-            Cliente cliente = clienteDao.getClientePorCPF(Integer.parseInt(cpf));
-            req.setAttribute("clienteAtualizacao", cliente);
-            req.getRequestDispatcher("/cliente/cadastro.jsp").forward(req, resp);
-        } else {
             clienteDao.deletarCliente(cpf);
             resp.sendRedirect(req.getContextPath() + "/cliente/ListarClienteServlet");
-        }
+        
 
 
     }

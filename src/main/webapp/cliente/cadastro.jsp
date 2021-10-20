@@ -40,13 +40,6 @@
                             required class="form-control"/>
                         <input type="text" name="emailCliente" value="${clienteAtualizacao.email}" placeholder="Endereço"
                             required class="form-control"/>
-                        <c:if test="${not empty clienteAtualizacao}">
-                            <input type="hidden" name="cpfCliente" placeholder="${clienteAtualizacao.cpf}"
-                                value="${clienteAtualizacao.cpf}" 
-                                required
-                                class="form-control"
-                                />
-                        </c:if>           
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
                 <a href="${pageContext.request.contextPath}/index.jsp"><button class="btn btn-primary back">Voltar</button></a>
