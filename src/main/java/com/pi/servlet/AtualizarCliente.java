@@ -27,7 +27,7 @@ public class AtualizarCliente extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         String cpf = req.getParameter("cpfUsuario");
-        Cliente cliente = clienteDao.getClientePorCPF(Integer.parseInt(cpf));
+        Cliente cliente = clienteDao.getClientePorCPF(cpf);
         req.setAttribute("clienteAtualizacao", cliente);
         req.getRequestDispatcher("/cliente/atualizar.jsp").forward(req, resp);
     }

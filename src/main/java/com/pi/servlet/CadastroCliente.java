@@ -5,16 +5,10 @@
  */
 package com.pi.servlet;
 
-import com.pi.dao.ClienteDao;
 import com.pi.entities.Cliente;
+import com.pi.facade.ClienteFacade;
+import com.pi.uteis.Formatador;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,42 +20,32 @@ import javax.servlet.http.HttpServletResponse;
 
  public class CadastroCliente extends HttpServlet {
 
-     ClienteDao clienteDao;
+     ClienteFacade clienteFacade;
+     Formatador formatador = new Formatador();
      
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
-        try {
-            String nome = request.getParameter("nomeCliente");
-            String email = request.getParameter("emailCliente");
-            String cpf = request.getParameter("cpfCliente");
-            String dataNascimento = request.getParameter("dataNascimento");
-            String telefone = request.getParameter("telefoneCliente");
-            String endereco = request.getParameter("enderecoCliente");
-            
-            Cliente cliente = new Cliente();
-            cliente.setNome(nome);
-            cliente.setCpf(Integer.parseInt(cpf));
-            cliente.setEmail(email);
-            cliente.setDataNascimento(formataData(dataNascimento));
-            cliente.setTelefone(Integer.parseInt(telefone));
-            cliente.setEndereco(endereco);
-            
-            boolean inserirCliente = clienteDao.inserirCliente(cliente);
-            if(inserirCliente){
-                response.sendRedirect(request.getContextPath()+"/uteis/sucesso.jsp");
-            }
-        } catch(ParseException ex) {
-             response.sendRedirect(request.getContextPath()+"/uteis/erro.jsp");
-        } catch (SQLException ex) {
-             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-         }
-    }
+        String nome = request.getParameter("nomeCliente");
+        String email = request.getParameter("emailCliente");
+        String cpf = request.getParameter("cpfCliente");
+        String dataNascimento = request.getParameter("dataNascimento");
+        String telefone = request.getParameter("telefoneCliente");
+        String endereco = request.getParameter("enderecoCliente");
 
-    public Date formataData(String data) throws ParseException{
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataFormatada = formato.parse(data);
-        return dataFormatada;
+        Cliente cliente = new Cliente();
+        cliente.setNome(nome);
+        cliente.setCpf(cpf);
+        cliente.setEmail(email);
+        cliente.setDataNascimento(formatador.formataStringParaData(dataNascimento));
+        cliente.setTelefone(telefone);
+        cliente.setEndereco(endereco);
+
+        boolean inserirCliente = clienteFacade.cadastroCliente(cliente);
+        if(inserirCliente){
+            response.sendRedirect(request.getContextPath()+"/uteis/sucesso.jsp");
+        }else{
+            response.sendRedirect(request.getContextPath()+"/uteis/erro.jsp");
+        }
     }
 }

@@ -29,7 +29,7 @@ public class DeletarCliente extends HttpServlet {
         String cpf = req.getParameter("cpfUsuario");
         String operacao = req.getParameter("ope");
         
-        clienteDao.getClientePorCPF(Integer.parseInt(cpf));
+        clienteDao.getClientePorCPF(cpf);
         
         clienteDao.deletarCliente(cpf);
         resp.sendRedirect(req.getContextPath() + "/cliente/ListarClienteServlet");

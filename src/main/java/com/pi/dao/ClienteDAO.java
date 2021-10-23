@@ -16,7 +16,7 @@ import java.util.List;
 public interface ClienteDao {
     boolean inserirCliente(Cliente cliente) throws SQLException;
     List<Cliente> getClientes();
-    Cliente getClientePorCPF(Integer cpf);
+    Cliente getClientePorCPF(String cpf);
     List<Cliente> getClientePorNome(String nomeBusca);
     boolean deletarCliente(String cpf);
     boolean atualizarCliente(Cliente cliente);

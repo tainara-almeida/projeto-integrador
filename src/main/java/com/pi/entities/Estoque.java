@@ -17,6 +17,6 @@ import lombok.Setter;
 @Setter
 public class Estoque implements Serializable{
     private Long id;
-    private Long codigoBarras;
+    private Long idProduto;
     private Integer quantidade;
 }

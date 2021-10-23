@@ -5,10 +5,12 @@
  */
 package com.pi.facade;
 
+import com.pi.entities.Cliente;
+
 /**
  *
  * @author Andrew
  */
 public interface ClienteFacade {
-    
+    public boolean cadastroCliente(Cliente filtro);
 }

@@ -34,10 +34,10 @@ public class ClienteDaoImpl implements ClienteDao {
             PreparedStatement ps;
             ps = con.prepareStatement(query);
             ps.setString(1, cliente.getNome());
-            ps.setInt(2, cliente.getCpf());
+            ps.setString(2, cliente.getCpf());
             ps.setString(3, cliente.getEmail());
             ps.setDate(4, (Date) cliente.getDataNascimento());
-            ps.setInt(5, cliente.getTelefone());
+            ps.setString(5, cliente.getTelefone());
             ps.execute();
         }catch (SQLException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,10 +59,10 @@ public class ClienteDaoImpl implements ClienteDao {
                 Cliente cliente = new Cliente();
                 String nome = rs.getString("nome");
                 String email = rs.getString("email");
-                Integer cpf = rs.getInt("cpf");
+                String cpf = rs.getString("cpf");
                 Integer id = rs.getInt("id");
                 Date dataNascimento = rs.getDate("dataNascimento");
-                Integer telefone = rs.getInt("telefone");
+                String telefone = rs.getString("telefone");
                 cliente.setNome(nome);
                 cliente.setEmail(email);
                 cliente.setCpf(cpf);
@@ -79,13 +79,13 @@ public class ClienteDaoImpl implements ClienteDao {
     }
 
     @Override
-    public Cliente getClientePorCPF(Integer cpf) {
+    public Cliente getClientePorCPF(String cpf) {
         String query = "select * from cliente where cpf=?";
         Cliente cliente = null;
         Connection con = Conexao.getConexao();
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, cpf);
+            ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 cliente = new Cliente();
@@ -93,7 +93,7 @@ public class ClienteDaoImpl implements ClienteDao {
                 String email = rs.getString("email");
                 Integer id = rs.getInt("id");
                 Date dataNascimento = rs.getDate("dataNascimento");
-                Integer telefone = rs.getInt("telefone");
+                String telefone = rs.getString("telefone");
                 cliente.setNome(nome);
                 cliente.setEmail(email);
                 cliente.setCpf(cpf);
@@ -123,9 +123,9 @@ public class ClienteDaoImpl implements ClienteDao {
                 String nome = rs.getString("nome");
                 String email = rs.getString("email");
                 Integer id = rs.getInt("id");
-                Integer cpf = rs.getInt("cpf");
+                String cpf = rs.getString("cpf");
                 Date dataNascimento = rs.getDate("dataNascimento");
-                Integer telefone = rs.getInt("telefone");
+                String telefone = rs.getString("telefone");
                 cliente.setNome(nome);
                 cliente.setEmail(email);
                 cliente.setCpf(cpf);
@@ -166,7 +166,7 @@ public class ClienteDaoImpl implements ClienteDao {
              PreparedStatement ps = con.prepareStatement(query);
              ps.setString(1, cliente.getNome());
              ps.setString(2, cliente.getEmail());
-             ps.setInt(3, cliente.getCpf());
+             ps.setString(3, cliente.getCpf());
              ps.executeUpdate();
          } catch (SQLException ex) {
              Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
