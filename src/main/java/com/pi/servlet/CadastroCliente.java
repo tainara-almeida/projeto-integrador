@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pi.servlet.cliente;
+package com.pi.servlet;
 
 import com.pi.dao.ClienteDao;
 import com.pi.entities.Cliente;
@@ -39,7 +39,6 @@ import javax.servlet.http.HttpServletResponse;
             String dataNascimento = request.getParameter("dataNascimento");
             String telefone = request.getParameter("telefoneCliente");
             String endereco = request.getParameter("enderecoCliente");
-            String senha = request.getParameter("senhaCliente");
             
             Cliente cliente = new Cliente();
             cliente.setNome(nome);
@@ -48,7 +47,6 @@ import javax.servlet.http.HttpServletResponse;
             cliente.setDataNascimento(formataData(dataNascimento));
             cliente.setTelefone(Integer.parseInt(telefone));
             cliente.setEndereco(endereco);
-            cliente.setSenha(senha);
             
             boolean inserirCliente = clienteDao.inserirCliente(cliente);
             if(inserirCliente){

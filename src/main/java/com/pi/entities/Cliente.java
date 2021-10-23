@@ -24,5 +24,4 @@ public class Cliente implements Serializable{
     private Date dataNascimento;
     private Integer telefone;
     private String endereco;
-    private String senha;
 }

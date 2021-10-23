@@ -27,7 +27,7 @@ public class ClienteDaoImpl implements ClienteDao {
     @Override
     public boolean inserirCliente(Cliente cliente){
         boolean ok = true;
-        String query = "insert into cliente(nome, cpf, email, dataNascimento, telefone, senha) values (?,?,?,?,?,?)";
+        String query = "insert into cliente(nome, cpf, email, dataNascimento, telefone) values (?,?,?,?,?)";
         Connection con = Conexao.getConexao();
         
         try{
@@ -38,7 +38,6 @@ public class ClienteDaoImpl implements ClienteDao {
             ps.setString(3, cliente.getEmail());
             ps.setDate(4, (Date) cliente.getDataNascimento());
             ps.setInt(5, cliente.getTelefone());
-            ps.setString(6, cliente.getSenha());
             ps.execute();
         }catch (SQLException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,13 +63,11 @@ public class ClienteDaoImpl implements ClienteDao {
                 Integer id = rs.getInt("id");
                 Date dataNascimento = rs.getDate("dataNascimento");
                 Integer telefone = rs.getInt("telefone");
-                String senha = rs.getString("senha");
                 cliente.setNome(nome);
                 cliente.setEmail(email);
                 cliente.setCpf(cpf);
                 cliente.setDataNascimento(dataNascimento);
                 cliente.setId(id);
-                cliente.setSenha(senha);
                 cliente.setTelefone(telefone);
                 clientes.add(cliente);
             }
@@ -97,13 +94,11 @@ public class ClienteDaoImpl implements ClienteDao {
                 Integer id = rs.getInt("id");
                 Date dataNascimento = rs.getDate("dataNascimento");
                 Integer telefone = rs.getInt("telefone");
-                String senha = rs.getString("senha");
                 cliente.setNome(nome);
                 cliente.setEmail(email);
                 cliente.setCpf(cpf);
                 cliente.setDataNascimento(dataNascimento);
                 cliente.setId(id);
-                cliente.setSenha(senha);
                 cliente.setTelefone(telefone);
             }
         } catch (SQLException ex) {
@@ -131,13 +126,11 @@ public class ClienteDaoImpl implements ClienteDao {
                 Integer cpf = rs.getInt("cpf");
                 Date dataNascimento = rs.getDate("dataNascimento");
                 Integer telefone = rs.getInt("telefone");
-                String senha = rs.getString("senha");
                 cliente.setNome(nome);
                 cliente.setEmail(email);
                 cliente.setCpf(cpf);
                 cliente.setDataNascimento(dataNascimento);
                 cliente.setId(id);
-                cliente.setSenha(senha);
                 cliente.setTelefone(telefone);
                 clientes.add(cliente);
             }

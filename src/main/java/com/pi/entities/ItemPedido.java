@@ -16,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemPedido implements Serializable{
+    private Integer id;
     private Integer quantidade;
     private Double preco;
     
