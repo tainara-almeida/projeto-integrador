@@ -30,6 +30,7 @@ public class ClienteFacadeImpl implements ClienteFacade{
     
     Formatador formatador = new Formatador();
     
+    @Override
     public boolean cadastroCliente(Cliente filtro){
         Cliente cliente = new Cliente();
         boolean inserirCliente;
@@ -72,5 +73,7 @@ public class ClienteFacadeImpl implements ClienteFacade{
         }
         return inserirCliente;
     }
+    
+    
     
 }
