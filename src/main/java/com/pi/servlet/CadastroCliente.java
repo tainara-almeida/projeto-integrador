@@ -41,10 +41,10 @@ import javax.servlet.http.HttpServletResponse;
         cliente.setTelefone(telefone);
         cliente.setEndereco(endereco);
 
-        boolean inserirCliente = clienteFacade.cadastroCliente(cliente);
-        if(inserirCliente){
+        try{
+            clienteFacade.cadastroCliente(cliente);
             response.sendRedirect(request.getContextPath()+"/uteis/sucesso.jsp");
-        }else{
+        }catch(IOException e){
             response.sendRedirect(request.getContextPath()+"/uteis/erro.jsp");
         }
     }

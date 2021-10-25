@@ -21,6 +21,8 @@ public class ClienteFacadeImpl implements ClienteFacade{
     
     private static final com.sun.org.slf4j.internal.Logger LOGGER = LoggerFactory.getLogger(ClienteFacadeImpl.class);
     
+    public final String CLIENTE_EXISTENTE = "Cliente ja existe";
+    
     public final String CPF_INVALIDO = "Favor fornecer um cpf valido";
     public final String TELEFONE_INVALIDO = "Favor fornecer um telefone valido";
     public final String NOME_INVALIDO = "Favor fornecer um nome valido";
@@ -31,9 +33,8 @@ public class ClienteFacadeImpl implements ClienteFacade{
     Formatador formatador = new Formatador();
     
     @Override
-    public boolean cadastroCliente(Cliente filtro){
+    public void cadastroCliente(Cliente filtro){
         Cliente cliente = new Cliente();
-        boolean inserirCliente;
         try{
             if(!filtro.getCpf().equals(null) && !filtro.getCpf().equals("")){
             cliente.setCpf(formatador.formataCPF(filtro.getCpf()));
@@ -66,12 +67,38 @@ public class ClienteFacadeImpl implements ClienteFacade{
                 throw new Exception(NOME_INVALIDO);
             }
             
-            inserirCliente = clienteDao.inserirCliente(cliente);
+            if(validaClienteExistente(formatador.formataCPF(filtro.getCpf()))){
+                clienteDao.inserirCliente(cliente);
+            }else{
+                throw new Exception(CLIENTE_EXISTENTE);
+            }
         }catch(Exception e){
-            inserirCliente = false;
            LOGGER.error("Erro:", e);
         }
-        return inserirCliente;
+    }
+    
+    @Override
+    public void deletarCliente(String cpf){
+        
+        String filtroCpf = formatador.formataCPF(cpf);
+        try{
+            if(validaClienteExistente(filtroCpf)){
+                clienteDao.deletarCliente(filtroCpf);
+            }else{
+                throw new Exception(CPF_INVALIDO);
+            }
+        }catch(Exception e){
+            LOGGER.error("Erro:", e);
+        }
+    }
+    
+    private boolean validaClienteExistente(String cpf){
+        boolean retorno;
+        if(clienteDao.getClientePorCPF(cpf) != null){
+            return retorno = false;
+        }else{
+            return retorno = true;
+        }
     }
     
     

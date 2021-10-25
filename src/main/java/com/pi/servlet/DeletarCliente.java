@@ -26,8 +26,7 @@ public class DeletarCliente extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cpf = req.getParameter("cpfUsuario");
-        String operacao = req.getParameter("ope");
+        String cpf = req.getParameter("cpfCliente");
         
         clienteDao.getClientePorCPF(cpf);
         

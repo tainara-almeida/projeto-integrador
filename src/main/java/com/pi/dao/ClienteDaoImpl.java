@@ -25,8 +25,7 @@ import java.util.logging.Logger;
 public class ClienteDaoImpl implements ClienteDao {
         
     @Override
-    public boolean inserirCliente(Cliente cliente){
-        boolean ok = true;
+    public void inserirCliente(Cliente cliente){
         String query = "insert into cliente(nome, cpf, email, dataNascimento, telefone) values (?,?,?,?,?)";
         Connection con = Conexao.getConexao();
         
@@ -41,9 +40,7 @@ public class ClienteDaoImpl implements ClienteDao {
             ps.execute();
         }catch (SQLException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            ok = false;
         }
-        return ok;
     }
 
     @Override
@@ -142,8 +139,7 @@ public class ClienteDaoImpl implements ClienteDao {
     }
 
     @Override
-    public boolean deletarCliente(String cpf) {
-        boolean ok = true;
+    public void deletarCliente(String cpf) {
         String query = "delete from cliente where cpf=?";
         Connection con = Conexao.getConexao();
          try {
@@ -152,9 +148,7 @@ public class ClienteDaoImpl implements ClienteDao {
              ps.executeUpdate();
          } catch (SQLException ex) {
              Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-             ok = false;
          }
-         return ok;
     }
 
     @Override

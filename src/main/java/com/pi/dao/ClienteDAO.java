@@ -14,10 +14,10 @@ import java.util.List;
  * @author Andrew
  */
 public interface ClienteDao {
-    boolean inserirCliente(Cliente cliente) throws SQLException;
+    void inserirCliente(Cliente cliente);
     List<Cliente> getClientes();
     Cliente getClientePorCPF(String cpf);
     List<Cliente> getClientePorNome(String nomeBusca);
-    boolean deletarCliente(String cpf);
+    void deletarCliente(String cpf);
     boolean atualizarCliente(Cliente cliente);
 }

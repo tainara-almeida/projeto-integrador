@@ -12,5 +12,6 @@ import com.pi.entities.Cliente;
  * @author Andrew
  */
 public interface ClienteFacade {
-    public boolean cadastroCliente(Cliente filtro);
+    void cadastroCliente(Cliente filtro);
+    void deletarCliente(String cpf);
 }
