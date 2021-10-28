@@ -17,13 +17,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Funcionario implements Serializable{
-    private Long id;
-    private Long cpf;
+    private Integer id;
+    private String cpf;
     private Long codigoEmpresa;
     private String nome;
     private String email;
     private Date dataNascimento;
-    private Long telefone;
+    private String telefone;
     private String endereco;
     private Setor setor;
     private String senha;

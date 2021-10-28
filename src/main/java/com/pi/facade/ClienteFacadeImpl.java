@@ -9,6 +9,7 @@ import com.pi.dao.ClienteDao;
 import com.pi.entities.Cliente;
 import com.pi.uteis.Formatador;
 import com.sun.org.slf4j.internal.LoggerFactory;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -79,7 +80,6 @@ public class ClienteFacadeImpl implements ClienteFacade{
     
     @Override
     public void deletarCliente(String cpf){
-        
         String filtroCpf = formatador.formataCPF(cpf);
         try{
             if(validaClienteExistente(filtroCpf)){
@@ -92,6 +92,37 @@ public class ClienteFacadeImpl implements ClienteFacade{
         }
     }
     
+    @Override
+    public List<Cliente> buscarClientePorNome(String nome) {
+        try{
+            return clienteDao.getClientePorNome(nome);
+        }catch(Exception e){
+            LOGGER.error("Erro:", e);
+        }
+        return null;
+    }
+
+    @Override
+    public Cliente buscarClientePorCpf(String cpf) {
+        String filtroCpf = formatador.formataCPF(cpf);
+        try{
+            return clienteDao.getClientePorCPF(filtroCpf);
+        }catch(Exception e){
+            LOGGER.error("Erro:", e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Cliente> buscarCliente() {
+        try{
+            return clienteDao.getClientes();
+        }catch(Exception e){
+            LOGGER.error("Erro:", e);
+        }
+        return null;
+    }
+    
     private boolean validaClienteExistente(String cpf){
         boolean retorno;
         if(clienteDao.getClientePorCPF(cpf) != null){
@@ -100,7 +131,6 @@ public class ClienteFacadeImpl implements ClienteFacade{
             return retorno = true;
         }
     }
-    
-    
+
     
 }

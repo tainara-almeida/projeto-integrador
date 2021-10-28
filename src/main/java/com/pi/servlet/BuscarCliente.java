@@ -7,6 +7,7 @@ package com.pi.servlet;
 
 import com.pi.dao.ClienteDao;
 import com.pi.entities.Cliente;
+import com.pi.facade.ClienteFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BuscarCliente extends HttpServlet {
     
     ClienteDao clienteDAO;
+    ClienteFacade clienteFacade;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,14 +34,27 @@ public class BuscarCliente extends HttpServlet {
         String nomeBusca = request.getParameter("nomeCliente");
         String cpfBusca = request.getParameter("cpfCliente");
         
-        if(cpfBusca != null || !cpfBusca.equals("")){
-            
-        }else if(nomeBusca != null || !nomeBusca.equals("")){
-            
+        if(cpfBusca != null && !cpfBusca.equals("")){
+            Cliente cliente = clienteFacade.buscarClientePorCpf(cpfBusca);
+            request.setAttribute("listaClientes", cliente);
+        
+            String url = "/cliente/buscarCliente.jsp";
+            request.getRequestDispatcher(url).forward(request, response);
+        }else if(nomeBusca != null && !nomeBusca.equals("")){
+            List<Cliente> clientes = clienteFacade.buscarClientePorNome(nomeBusca);
+            request.setAttribute("listaClientes", clientes);
+        
+            String url = "/cliente/buscarCliente.jsp";
+            request.getRequestDispatcher(url).forward(request, response);
         }else{
-            
+            List<Cliente> clientes = clienteFacade.buscarCliente();
+            request.setAttribute("listaClientes", clientes);
+        
+            String url = "/cliente/buscarCliente.jsp";
+            request.getRequestDispatcher(url).forward(request, response);
         }
-        List<Cliente> clientes = clienteDAO.getClientePorNome(nomeBusca);
+        
+        /*List<Cliente> clientes = clienteDAO.getClientePorNome(nomeBusca);
         request.setAttribute("listaClientes", clientes);
         
         // RequestDispatcher reaproveita os objetos Request e Response
@@ -47,6 +62,6 @@ public class BuscarCliente extends HttpServlet {
         request.getRequestDispatcher(url).forward(request, response);
         
         //sendRedirect sempre cria um novo request/response
-        //response.sendRedirect("listar.jsp");
+        //response.sendRedirect("listar.jsp");*/
     }
 }

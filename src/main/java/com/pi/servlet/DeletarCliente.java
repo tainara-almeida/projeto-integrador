@@ -5,10 +5,10 @@
  */
 package com.pi.servlet;
 
-import com.pi.dao.ClienteDao;
 import com.pi.entities.Cliente;
+import com.pi.facade.ClienteFacade;
+import com.pi.uteis.Formatador;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,15 +22,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DeletarCliente", urlPatterns = {"/DeletarCliente"})
 public class DeletarCliente extends HttpServlet {
     
-    ClienteDao clienteDao;
-    
+    Formatador formatador;
+    ClienteFacade clienteFacade;
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cpf = req.getParameter("cpfCliente");
         
-        clienteDao.getClientePorCPF(cpf);
-        
-        clienteDao.deletarCliente(cpf);
-        resp.sendRedirect(req.getContextPath() + "/cliente/ListarClienteServlet");
+        try{
+            clienteFacade.deletarCliente(cpf);
+            resp.sendRedirect(req.getContextPath()+"/uteis/sucesso.jsp");
+        }catch(IOException e){
+            resp.sendRedirect(req.getContextPath()+"/uteis/erro.jsp");
+        }
     }
 }

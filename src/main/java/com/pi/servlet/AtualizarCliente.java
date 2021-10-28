@@ -31,4 +31,11 @@ public class AtualizarCliente extends HttpServlet {
         req.setAttribute("clienteAtualizacao", cliente);
         req.getRequestDispatcher("/cliente/atualizar.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

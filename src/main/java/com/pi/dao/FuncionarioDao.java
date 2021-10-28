@@ -5,10 +5,19 @@
  */
 package com.pi.dao;
 
+import com.pi.entities.Funcionario;
+import java.util.List;
+
 /**
  *
  * @author Andrew
  */
 public interface FuncionarioDao {
+    public void inserirFuncionario(Funcionario funcionario);
+    public List<Funcionario> getFuncionario();
+    public Funcionario getFuncionarioPorCPF(String cpf);
+    public List<Funcionario> getFuncionarioPorNome(String nomeBusca);
+    public void deletarFuncionario(String cpf);
+    public boolean atualizarFuncionario(Funcionario funcionario);
     
 }
