@@ -6,7 +6,7 @@
 package com.pi.servlet;
 
 import com.pi.entities.Cliente;
-import com.pi.facade.ClienteFacade;
+import com.pi.facade.ClienteFacadeImpl;
 import com.pi.uteis.Formatador;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeletarCliente extends HttpServlet {
     
     Formatador formatador;
-    ClienteFacade clienteFacade;
+    ClienteFacadeImpl clienteFacade;
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

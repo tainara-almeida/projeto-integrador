@@ -7,7 +7,7 @@ package com.pi.servlet;
 
 import com.pi.dao.ClienteDao;
 import com.pi.entities.Cliente;
-import com.pi.facade.ClienteFacade;
+import com.pi.facade.ClienteFacadeImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -24,8 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "BuscarCliente", urlPatterns = {"/BuscarCliente"})
 public class BuscarCliente extends HttpServlet {
     
-    ClienteDao clienteDAO;
-    ClienteFacade clienteFacade;
+    ClienteFacadeImpl clienteFacade;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Conexao {
         
         // CONEXAO COM MYSQL LOCAL
-        /*static { // Design Patterns -> Singleton
+        static { // Design Patterns -> Singleton
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException ex) {
@@ -28,9 +28,11 @@ public class Conexao {
     
         public static Connection getConexao() {
     
-            String url = "jdbc:mysql://localhost:3306/senac?useSSL=false&allowPublicKeyRetrieval=true";
+            //jdbc:mysql://{HOST}[:{PORT}][/{DB}]
+            
+            String url = "jdbc:mysql://localhost:3306/loja_brinquedos";
             String user = "root";
-            String password = "passw0rd";
+            String password = "123456";
     
             Connection con = null;
             try {
@@ -40,9 +42,9 @@ public class Conexao {
             }
             return con;
     
-        }*/
+        }
         
-        // CONEXAO COM JAVADB
+       /* // CONEXAO COM JAVADB
         static { // Design Patterns -> Singleton
             try {
                 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -65,6 +67,6 @@ public class Conexao {
             }
             return con;
     
-        }
+        }*/
     
     }

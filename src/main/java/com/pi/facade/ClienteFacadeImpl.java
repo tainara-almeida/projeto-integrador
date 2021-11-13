@@ -6,21 +6,20 @@
 package com.pi.facade;
 
 import com.pi.dao.ClienteDao;
+import com.pi.dao.ClienteDaoImpl;
 import com.pi.entities.Cliente;
 import com.pi.uteis.Formatador;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
  * @author Andrew
  */
-public class ClienteFacadeImpl implements ClienteFacade{
+public class ClienteFacadeImpl{
     
-    ClienteDao clienteDao;
-    
-    private static final com.sun.org.slf4j.internal.Logger LOGGER = LoggerFactory.getLogger(ClienteFacadeImpl.class);
+    ClienteDaoImpl clienteDao = new ClienteDaoImpl();
     
     public final String CLIENTE_EXISTENTE = "Cliente ja existe";
     
@@ -33,7 +32,6 @@ public class ClienteFacadeImpl implements ClienteFacade{
     
     Formatador formatador = new Formatador();
     
-    @Override
     public void cadastroCliente(Cliente filtro){
         Cliente cliente = new Cliente();
         try{
@@ -74,11 +72,10 @@ public class ClienteFacadeImpl implements ClienteFacade{
                 throw new Exception(CLIENTE_EXISTENTE);
             }
         }catch(Exception e){
-           LOGGER.error("Erro:", e);
+           Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
-    @Override
     public void deletarCliente(String cpf){
         String filtroCpf = formatador.formataCPF(cpf);
         try{
@@ -88,37 +85,34 @@ public class ClienteFacadeImpl implements ClienteFacade{
                 throw new Exception(CPF_INVALIDO);
             }
         }catch(Exception e){
-            LOGGER.error("Erro:", e);
+            Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
-    @Override
     public List<Cliente> buscarClientePorNome(String nome) {
         try{
             return clienteDao.getClientePorNome(nome);
         }catch(Exception e){
-            LOGGER.error("Erro:", e);
+            Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
     }
 
-    @Override
     public Cliente buscarClientePorCpf(String cpf) {
         String filtroCpf = formatador.formataCPF(cpf);
         try{
             return clienteDao.getClientePorCPF(filtroCpf);
         }catch(Exception e){
-            LOGGER.error("Erro:", e);
+            Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
     }
 
-    @Override
     public List<Cliente> buscarCliente() {
         try{
             return clienteDao.getClientes();
         }catch(Exception e){
-            LOGGER.error("Erro:", e);
+            Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
     }

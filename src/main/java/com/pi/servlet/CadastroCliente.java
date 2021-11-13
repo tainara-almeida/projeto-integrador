@@ -6,7 +6,7 @@
 package com.pi.servlet;
 
 import com.pi.entities.Cliente;
-import com.pi.facade.ClienteFacade;
+import com.pi.facade.ClienteFacadeImpl;
 import com.pi.uteis.Formatador;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
  public class CadastroCliente extends HttpServlet {
 
-     ClienteFacade clienteFacade;
+     ClienteFacadeImpl clienteFacade;
      Formatador formatador = new Formatador();
      
     @Override

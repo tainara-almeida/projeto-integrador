@@ -22,11 +22,10 @@ import java.util.logging.Logger;
  *
  * @author Tiago Scarton
  */
-public class ClienteDaoImpl implements ClienteDao {
+public class ClienteDaoImpl{
         
-    @Override
     public void inserirCliente(Cliente cliente){
-        String query = "insert into cliente(nome, cpf, email, dataNascimento, telefone) values (?,?,?,?,?)";
+        String query = "insert into cliente(nome, cpf, email, dataNascimento, telefone, endereco) values (?,?,?,?,?,?)";
         Connection con = Conexao.getConexao();
         
         try{
@@ -37,13 +36,13 @@ public class ClienteDaoImpl implements ClienteDao {
             ps.setString(3, cliente.getEmail());
             ps.setDate(4, (Date) cliente.getDataNascimento());
             ps.setString(5, cliente.getTelefone());
+            ps.setString(6, cliente.getEndereco());
             ps.execute();
         }catch (SQLException ex) {
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    @Override
     public List<Cliente> getClientes() {
         List<Cliente> clientes = new ArrayList<>();
         String query = "select * from cliente";
@@ -75,7 +74,6 @@ public class ClienteDaoImpl implements ClienteDao {
 
     }
 
-    @Override
     public Cliente getClientePorCPF(String cpf) {
         String query = "select * from cliente where cpf=?";
         Cliente cliente = null;
@@ -105,7 +103,6 @@ public class ClienteDaoImpl implements ClienteDao {
 
     }
 
-    @Override
     public List<Cliente> getClientePorNome(String nomeBusca) {
         List<Cliente> clientes = new ArrayList<>();
         String query = "select * from cliente where nome like ?";
@@ -131,14 +128,15 @@ public class ClienteDaoImpl implements ClienteDao {
                 cliente.setTelefone(telefone);
                 clientes.add(cliente);
             }
+            return clientes;
         } catch (SQLException ex) {
+            clientes = null;
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return clientes;
 
     }
 
-    @Override
     public void deletarCliente(String cpf) {
         String query = "delete from cliente where cpf=?";
         Connection con = Conexao.getConexao();
@@ -151,7 +149,6 @@ public class ClienteDaoImpl implements ClienteDao {
          }
     }
 
-    @Override
     public boolean atualizarCliente(Cliente cliente) {
         boolean ok = true;
         String query = "update cliente set nome=?,email=? where cpf=?";
