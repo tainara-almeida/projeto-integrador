@@ -4,18 +4,17 @@
 <html>
     <c:import url="uteis/header.jsp"/>
     <head>
-        <title>CRUD Cliente</title>
+        <title>Senac Toys</title>
     </head>
     <body class="container">
 
         <div class="bg">
-            <h1 class="title">Busca por nome de cliente</h1>
+            <h1 class="title">Home</h1>
 
             <nav class="container menu">
                 <ul>
-                    <li><a href="cliente/cadastro.jsp">Cadastrar Cliente</a></li>
-                    <li><a href="cliente/ListarClienteServlet">Listar Cliente</a></li>
-                    <li><a href="cliente/buscarCliente.jsp">Buscar Cliente</a></li>
+                    <li><a href="cliente/clientes.jsp">Clientes</a></li>
+                    <li><a href="funcionario/funcionarios.jsp">Funcionarios</a></li>
                 </ul>
             </nav>
         </div>

@@ -5,10 +5,10 @@
  */
 package com.pi.uteis;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,20 +30,11 @@ public class Formatador {
                 .replaceAll("-", "");
     }
     
-    public String formataDataParaSql(Date data){
+    public static String formataDataParaSql(String data){
         DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        String dataFormatada = formato.format(data);
+        String dataFormatada;
+        dataFormatada = formato.format(data);
         return dataFormatada;
     }
     
-    public Date formataStringParaData(String data){
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-        Date dataFormatada = null;
-        try {
-            dataFormatada = (Date) formato.parse(data);
-        } catch (ParseException ex) {
-            Logger.getLogger(Formatador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return dataFormatada;
-    }
 }

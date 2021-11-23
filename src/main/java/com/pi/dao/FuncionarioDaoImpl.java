@@ -6,7 +6,9 @@
 package com.pi.dao;
 
 import com.pi.conexao.Conexao;
+import com.pi.entities.Cliente;
 import com.pi.entities.Funcionario;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,31 +23,30 @@ import java.util.logging.Logger;
  *
  * @author Andrew
  */
-public class FuncionarioDaoImpl implements FuncionarioDao{
+public class FuncionarioDaoImpl{
     
-    @Override
-    public void inserirFuncionario(Funcionario funcionario){
-        String query = "insert into funcionario(nome, cpf, email, dataNascimento, telefone) values (?,?,?,?,?)";
+    static public void inserirFuncionario(Funcionario funcionario){
+        String query = "CALL SPI_FUNCIONARIO(?, ?, ?, ?, ?, ?);";
         Connection con = Conexao.getConexao();
         
         try{
-            PreparedStatement ps;
-            ps = con.prepareStatement(query);
+            CallableStatement ps;
+            ps = con.prepareCall(query);
             ps.setString(1, funcionario.getNome());
             ps.setString(2, funcionario.getCpf());
             ps.setString(3, funcionario.getEmail());
-            ps.setDate(4, (Date) funcionario.getDataNascimento());
+            ps.setDate(4, Date.valueOf(funcionario.getDataNascimento()));
             ps.setString(5, funcionario.getTelefone());
+            ps.setString(6, funcionario.getEndereco());
             ps.execute();
         }catch (SQLException ex) {
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    @Override
-    public List<Funcionario> getFuncionario() {
+    static public List<Funcionario> getFuncionarios() {
         List<Funcionario> funcionarios = new ArrayList<>();
-        String query = "select * from funcionario";
+        String query = "select * from Funcionario";
 
         Connection con = Conexao.getConexao();
         try {
@@ -53,61 +54,64 @@ public class FuncionarioDaoImpl implements FuncionarioDao{
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Funcionario funcionario = new Funcionario();
-                String nome = rs.getString("nome");
-                String email = rs.getString("email");
-                String cpf = rs.getString("cpf");
-                Integer id = rs.getInt("id");
-                Date dataNascimento = rs.getDate("dataNascimento");
-                String telefone = rs.getString("telefone");
+                String nome = rs.getString("NM_FUNCIONARIO");
+                String email = rs.getString("DC_EMAIL");
+                String cpf = rs.getString("DC_CPF");
+                Integer id = rs.getInt("COD_FUNCIONARIO");
+                String dataNascimento = rs.getString("DT_NASCIMENTO");
+                String telefone = rs.getString("DC_TELEFONE");
+                String endereco = rs.getString("DC_ENDERECO");
                 funcionario.setNome(nome);
                 funcionario.setEmail(email);
                 funcionario.setCpf(cpf);
                 funcionario.setDataNascimento(dataNascimento);
                 funcionario.setId(id);
                 funcionario.setTelefone(telefone);
+                funcionario.setEndereco(endereco);
                 funcionarios.add(funcionario);
             }
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return funcionarios;
-
     }
 
-    @Override
-    public Funcionario getFuncionarioPorCPF(String cpf) {
-        String query = "select * from funcionario where cpf=?";
-        Funcionario funcionario = null;
+    static public Funcionario getFuncionarioPorCPF(String cpfFun) {
+        String query = "select * from funcionario where DC_CPF=?";
         Connection con = Conexao.getConexao();
+        Funcionario funcionario = new Funcionario();
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, cpf);
+            ps.setString(1, cpfFun);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            
+            if(rs != null && rs.next()){
                 funcionario = new Funcionario();
-                String nome = rs.getString("nome");
-                String email = rs.getString("email");
-                Integer id = rs.getInt("id");
-                Date dataNascimento = rs.getDate("dataNascimento");
-                String telefone = rs.getString("telefone");
+                String nome = rs.getString("NM_FUNCIONARIO");
+                String email = rs.getString("DC_EMAIL");
+                Integer id = rs.getInt("COD_FUNCIONARIO");
+                String cpf = rs.getString("DC_CPF");
+                String dataNascimento = rs.getString("DT_NASCIMENTO");
+                String telefone = rs.getString("DC_TELEFONE");
+                String endereco = rs.getString("DC_ENDERECO");
                 funcionario.setNome(nome);
                 funcionario.setEmail(email);
                 funcionario.setCpf(cpf);
                 funcionario.setDataNascimento(dataNascimento);
                 funcionario.setId(id);
                 funcionario.setTelefone(telefone);
+                funcionario.setEndereco(endereco);
             }
+        
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return funcionario;
-
     }
 
-    @Override
-    public List<Funcionario> getFuncionarioPorNome(String nomeBusca) {
+    static public List<Funcionario> getFuncionarioPorNome(String nomeBusca) {
         List<Funcionario> funcionarios = new ArrayList<>();
-        String query = "select * from funcionario where nome like ?";
+        String query = "select * from Funcionario where NM_FUNCIONARIO like ?";
 
         Connection con = Conexao.getConexao();
          try {
@@ -116,30 +120,32 @@ public class FuncionarioDaoImpl implements FuncionarioDao{
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Funcionario funcionario = new Funcionario();
-                String nome = rs.getString("nome");
-                String email = rs.getString("email");
-                Integer id = rs.getInt("id");
-                String cpf = rs.getString("cpf");
-                Date dataNascimento = rs.getDate("dataNascimento");
-                String telefone = rs.getString("telefone");
+                String nome = rs.getString("NM_FUNCIONARIO");
+                String email = rs.getString("DC_EMAIL");
+                Integer id = rs.getInt("COD_FUNCIONARIO");
+                String cpf = rs.getString("DC_CPF");
+                String dataNascimento = rs.getString("DT_NASCIMENTO");
+                String telefone = rs.getString("DC_TELEFONE");
+                String endereco = rs.getString("DC_ENDERECO");
                 funcionario.setNome(nome);
                 funcionario.setEmail(email);
                 funcionario.setCpf(cpf);
                 funcionario.setDataNascimento(dataNascimento);
                 funcionario.setId(id);
                 funcionario.setTelefone(telefone);
+                funcionario.setEndereco(endereco);
                 funcionarios.add(funcionario);
             }
+            return funcionarios;
         } catch (SQLException ex) {
+            funcionarios = null;
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return funcionarios;
-
     }
 
-    @Override
-    public void deletarFuncionario(String cpf) {
-        String query = "delete from funcionario where cpf=?";
+    static public void deletarFuncionario(String cpf) {
+        String query = "delete from Funcionario where DC_CPF=?;";
         Connection con = Conexao.getConexao();
          try {
              PreparedStatement ps = con.prepareStatement(query);
@@ -150,17 +156,19 @@ public class FuncionarioDaoImpl implements FuncionarioDao{
          }
     }
 
-    @Override
-    public boolean atualizarFuncionario(Funcionario funcionario) {
+    static public boolean atualizarFuncionario(Funcionario funcionario) {
         boolean ok = true;
-        String query = "update funcionario set nome=?,email=? where cpf=?";
+        String query = "UPDATE FUNCIONARIO SET NM_FUNCIONARIO=?, DC_EMAIL=?, DT_NASCIMENTO=?, DC_TELEFONE=?, DC_ENDERECO=? where DC_CPF=?;";
         Connection con = Conexao.getConexao();
          try {
-             PreparedStatement ps = con.prepareStatement(query);
-             ps.setString(1, funcionario.getNome());
-             ps.setString(2, funcionario.getEmail());
-             ps.setString(3, funcionario.getCpf());
-             ps.executeUpdate();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, funcionario.getNome());
+            ps.setString(2, funcionario.getEmail());
+            ps.setDate(3, Date.valueOf(funcionario.getDataNascimento()));
+            ps.setString(4, funcionario.getTelefone());
+            ps.setString(5, funcionario.getEndereco());
+            ps.setString(6, funcionario.getCpf());
+            ps.executeUpdate();
          } catch (SQLException ex) {
              Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
              ok = false;

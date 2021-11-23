@@ -21,7 +21,7 @@ public class Cliente implements Serializable{
     private String cpf;
     private String nome;
     private String email;
-    private Date dataNascimento;
+    private String dataNascimento;
     private String telefone;
     private String endereco;
 }

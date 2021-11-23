@@ -20,8 +20,8 @@ public class Conexao {
         // CONEXAO COM MYSQL LOCAL
         static { // Design Patterns -> Singleton
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-            } catch (ClassNotFoundException ex) {
+                Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
                 Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -30,7 +30,8 @@ public class Conexao {
     
             //jdbc:mysql://{HOST}[:{PORT}][/{DB}]
             
-            String url = "jdbc:mysql://localhost:3306/loja_brinquedos";
+            
+            String url = "jdbc:mysql://127.0.0.1:3306/loja_brinquedos?useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
             String user = "root";
             String password = "123456";
     

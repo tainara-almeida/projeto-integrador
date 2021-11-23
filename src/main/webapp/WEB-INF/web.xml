@@ -5,34 +5,17 @@
         <servlet-class>com.pi.servlet.ClienteServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CadastroClienteServlet</servlet-name>
-        <servlet-class>br.senac.conexaobd.servlet.CadastroClienteServlet</servlet-class>
+        <servlet-name>FuncionarioServlet</servlet-name>
+        <servlet-class>com.pi.servlet.FuncionarioServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>BuscarClienteServlet</servlet-name>
-        <servlet-class>br.senac.conexaobd.servlet.BuscarClienteServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ListarClienteServlet</servlet-name>
-        <servlet-class>br.senac.conexaobd.servlet.ListarClienteServlet</servlet-class>
-    </servlet>
-    
     
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
         <url-pattern>/cliente/ClienteServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CadastroClienteServlet</servlet-name>
-        <url-pattern>/cliente/CadastroClienteServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BuscarClienteServlet</servlet-name>
-        <url-pattern>/cliente/BuscarClienteServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListarClienteServlet</servlet-name>
-        <url-pattern>/cliente/ListarClienteServlet</url-pattern>
+        <servlet-name>FuncionarioServlet</servlet-name>
+        <url-pattern>/funcionario/FuncionarioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

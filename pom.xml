@@ -14,7 +14,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
+    
     <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.27</version>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-rt</artifactId>
@@ -32,11 +38,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
         </dependency>
 
     </dependencies>

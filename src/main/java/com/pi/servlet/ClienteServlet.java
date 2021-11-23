@@ -7,6 +7,7 @@ package com.pi.servlet;
 
 import com.pi.entities.Cliente;
 import com.pi.facade.ClienteFacadeImpl;
+import com.pi.uteis.Formatador2;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +26,41 @@ import javax.servlet.http.HttpServletResponse;
 public class ClienteServlet extends HttpServlet {
 
     ClienteFacadeImpl clienteFacade = new ClienteFacadeImpl();
+    Formatador2 formatar = new Formatador2();
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String nomeBusca = req.getParameter("nomeCliente");
         String cpfBusca = req.getParameter("cpfCliente");
+        String operacao = req.getParameter("operacao");
         
         if(cpfBusca != null && !cpfBusca.equals("")){
-            Cliente cliente = clienteFacade.buscarClientePorCpf(cpfBusca);
-            req.setAttribute("listaClientes", cliente);
+            List<Cliente> clientes = new ArrayList<>();
+            Cliente cliente = new Cliente();
+            
+            if(operacao.equals("deletar")){
+                doDelete(req, resp);
+            }
+            
+            cliente = clienteFacade.buscarClientePorCpf(cpfBusca);
+            clientes.add(cliente);
+            req.setAttribute("listaClientes", clientes);
         
-            String url = "/cliente/buscarCliente.jsp";
+            String url = "";
+            
+            switch(operacao){
+                case "busca":
+                    url = "/cliente/buscarCliente.jsp";
+                    break;
+                case "atualizar":
+                    url = "/cliente/atualizar.jsp";
+                    break;
+            }
+            
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(req,resp);
+            
         }else if(nomeBusca != null && !nomeBusca.equals("")){
             try{
                 List<Cliente> clientes = new ArrayList<>();
@@ -63,4 +85,83 @@ public class ClienteServlet extends HttpServlet {
         }
         
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        if(req.getParameter("_method").equals("post")){
+            String cpf = req.getParameter("cpfCliente");
+            String nome = req.getParameter("nomeCliente");
+            String email = req.getParameter("emailCliente");
+            String dataNascimento = req.getParameter("dataCliente");
+            String telefone = req.getParameter("telefoneCliente");
+            String endereco = req.getParameter("enderecoCliente");
+
+            Cliente cliente = new Cliente();
+
+            cliente.setCpf(cpf);
+            cliente.setNome(nome);
+            cliente.setEmail(email);
+            cliente.setDataNascimento(dataNascimento);
+            cliente.setTelefone(telefone);
+            cliente.setEndereco(endereco);
+
+            try {
+                clienteFacade.cadastroCliente(cliente);
+
+                String url = "/cliente/cadastro.jsp";
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+                dispatcher.forward(req,resp);
+            } catch (IOException | ServletException e) {
+                Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }else{
+            doPut(req, resp);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        String cpf = req.getParameter("cpfCliente");
+        String nome = req.getParameter("nomeCliente");
+        String email = req.getParameter("emailCliente");
+        String dataNascimento = req.getParameter("dataCliente");
+        String telefone = req.getParameter("telefoneCliente");
+        String endereco = req.getParameter("enderecoCliente");
+        
+        Cliente cliente = new Cliente();
+        
+        cliente.setCpf(cpf);
+        cliente.setNome(nome);
+        cliente.setEmail(email);
+        cliente.setDataNascimento(dataNascimento);
+        cliente.setTelefone(telefone);
+        cliente.setEndereco(endereco);
+        
+        try {
+            clienteFacade.atulaizarCliente(cliente);
+            String url = "/cliente/buscarCliente.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(req,resp);
+        } catch (IOException e) {
+            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        try {
+            clienteFacade.deletarCliente(req.getParameter("cpfCliente"));
+            String url = "/cliente/buscarCliente.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(req,resp);
+        } catch (IOException | ServletException e) {
+            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    
 }

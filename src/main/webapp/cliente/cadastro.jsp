@@ -19,30 +19,23 @@
             <div>
                 <h1 class="title">Formulário de Clientes</h1>
 
-                <form action="CadastroClienteServlet" method="POST">
-                    <c:if test="${not empty clienteAtualizacao}">
-                        <input type="hidden" name="ope" value="1"/>
-                    </c:if>
-                        <c:if test="${empty clienteAtualizacao}">
-                            <input type="text" name="cpfCliente" placeholder="CPF"
-                                value="${clienteAtualizacao.cpf}" 
-                                required
-                                class="form-control"
-                                />
-                        </c:if>
-                        <input type="text" name="nomeCliente" value="${clienteAtualizacao.nome}" placeholder="Nome"
+                <form action="ClienteServlet" method="POST">
+                    <input type="hidden" name="_method" value="post"/>
+                    <input type="text" name="cpfCliente" value="${clienteCadastro.cpf}" placeholder="CPF"
                             required class="form-control"/>
-                        <input type="text" name="emailCliente" value="${clienteAtualizacao.email}" placeholder="Email"
-                            required class="form-control"/>
-                        <input type="text" name="emailCliente" value="${clienteAtualizacao.email}" placeholder="Data de Nascimento"
-                            required class="form-control"/>
-                        <input type="text" name="emailCliente" value="${clienteAtualizacao.email}" placeholder="Telefone"
-                            required class="form-control"/>
-                        <input type="text" name="emailCliente" value="${clienteAtualizacao.email}" placeholder="Endereço"
-                            required class="form-control"/>
+                    <input type="text" name="nomeCliente" value="${clienteCadastro.nome}" placeholder="Nome"
+                        required class="form-control"/>
+                    <input type="text" name="emailCliente" value="${clienteCadastro.email}" placeholder="Email"
+                        required class="form-control"/>
+                    <input type="text" name="dataCliente" value="${clienteCadastro.data}" placeholder="Data de Nascimento"
+                        required class="form-control"/>
+                    <input type="text" name="telefoneCliente" value="${clienteCadastro.telefone}" placeholder="Telefone"
+                        required class="form-control"/>
+                    <input type="text" name="enderecoCliente" value="${clienteCadastro.endereco}" placeholder="Endereço"
+                        required class="form-control"/>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
-                <a href="${pageContext.request.contextPath}/index.jsp"><button class="btn btn-primary back">Voltar</button></a>
+                <a href="${pageContext.request.contextPath}/cliente/clientes.jsp"><button class="btn btn-primary back">Voltar</button></a>
             </div>
         </div>
     </body>
