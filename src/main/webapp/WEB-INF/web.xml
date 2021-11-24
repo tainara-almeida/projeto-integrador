@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet>
-        <servlet-name>ClienteServlet</servlet-name>
-        <servlet-class>com.pi.servlet.ClienteServlet</servlet-class>
-    </servlet>
+    <filter>
+        <filter-name>FiltroAutenticacao</filter-name>
+        <filter-class>com.pi.filter.FiltroAutenticacao</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroAutenticacao</filter-name>
+        <url-pattern>/SenacToys/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>FuncionarioServlet</servlet-name>
         <servlet-class>com.pi.servlet.FuncionarioServlet</servlet-class>
     </servlet>
-    
-    <servlet-mapping>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.pi.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ClienteServlet</servlet-name>
-        <url-pattern>/cliente/ClienteServlet</url-pattern>
-    </servlet-mapping>
+        <servlet-class>com.pi.servlet.ClienteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FuncionarioServlet</servlet-name>
-        <url-pattern>/funcionario/FuncionarioServlet</url-pattern>
+        <url-pattern>/SenacToys/funcionario/FuncionarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClienteServlet</servlet-name>
+        <url-pattern>/SenacToys/cliente/ClienteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>SenacToys/index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

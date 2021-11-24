@@ -51,10 +51,10 @@ public class ClienteServlet extends HttpServlet {
             
             switch(operacao){
                 case "busca":
-                    url = "/cliente/buscarCliente.jsp";
+                    url = "/SenacToys/cliente/buscarCliente.jsp";
                     break;
                 case "atualizar":
-                    url = "/cliente/atualizar.jsp";
+                    url = "/SenacToys/cliente/atualizar.jsp";
                     break;
             }
             
@@ -68,7 +68,7 @@ public class ClienteServlet extends HttpServlet {
                 clientes = clienteFacade.buscarClientePorNome(nomeBusca);
                 req.setAttribute("listaClientes", clientes);
 
-                String url = "/cliente/buscarCliente.jsp";
+                String url = "/SenacToys/cliente/buscarCliente.jsp";
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
                 dispatcher.forward(req,resp);
             }catch(NullPointerException | ServletException e){
@@ -79,7 +79,7 @@ public class ClienteServlet extends HttpServlet {
             clientes = clienteFacade.buscarCliente();
             req.setAttribute("listaClientes", clientes);
         
-            String url = "/cliente/buscarCliente.jsp";
+            String url = "/SenacToys/cliente/buscarCliente.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(req,resp);
         }
@@ -109,7 +109,7 @@ public class ClienteServlet extends HttpServlet {
             try {
                 clienteFacade.cadastroCliente(cliente);
 
-                String url = "/cliente/cadastro.jsp";
+                String url = "/SenacToys/cliente/cadastro.jsp";
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
                 dispatcher.forward(req,resp);
             } catch (IOException | ServletException e) {
@@ -141,7 +141,7 @@ public class ClienteServlet extends HttpServlet {
         
         try {
             clienteFacade.atulaizarCliente(cliente);
-            String url = "/cliente/buscarCliente.jsp";
+            String url = "/SenacToys/cliente/buscarCliente.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(req,resp);
         } catch (IOException e) {
@@ -155,13 +155,11 @@ public class ClienteServlet extends HttpServlet {
         
         try {
             clienteFacade.deletarCliente(req.getParameter("cpfCliente"));
-            String url = "/cliente/buscarCliente.jsp";
+            String url = "/SenacToys/cliente/buscarCliente.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(req,resp);
         } catch (IOException | ServletException e) {
             Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
-    
 }

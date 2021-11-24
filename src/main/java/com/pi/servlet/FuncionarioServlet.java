@@ -5,7 +5,6 @@
  */
 package com.pi.servlet;
 
-import com.pi.entities.Cliente;
 import com.pi.entities.Funcionario;
 import com.pi.facade.FuncionarioFacedImpl;
 import com.pi.uteis.Formatador2;
@@ -52,10 +51,10 @@ public class FuncionarioServlet extends HttpServlet {
             
             switch(operacao){
                 case "busca":
-                    url = "/funcionario/buscarFuncionario.jsp";
+                    url = "/SenacToys/funcionario/buscarFuncionario.jsp";
                     break;
                 case "atualizar":
-                    url = "/funcionario/atualizar.jsp";
+                    url = "/SenacToys/funcionario/atualizar.jsp";
                     break;
             }
             
@@ -69,7 +68,7 @@ public class FuncionarioServlet extends HttpServlet {
                 funcionarios = funcionarioFacade.buscarFuncionarioPorNome(nomeBusca);
                 req.setAttribute("listaFuncionarios", funcionarios);
 
-                String url = "/funcionario/buscarFuncionario.jsp";
+                String url = "/SenacToys/funcionario/buscarFuncionario.jsp";
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
                 dispatcher.forward(req,resp);
             }catch(NullPointerException | ServletException e){
@@ -80,7 +79,7 @@ public class FuncionarioServlet extends HttpServlet {
             funcionarios = funcionarioFacade.buscarFuncionarios();
             req.setAttribute("listaFuncionarios", funcionarios);
         
-            String url = "/funcionario/buscarFuncionario.jsp";
+            String url = "/SenacToys/funcionario/buscarFuncionario.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(req,resp);
         }
@@ -110,7 +109,7 @@ public class FuncionarioServlet extends HttpServlet {
             try {
                 funcionarioFacade.cadastroFuncionario(funcionario);
 
-                String url = "/funcionario/cadastro.jsp";
+                String url = "/SenacToys/funcionario/cadastro.jsp";
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
                 dispatcher.forward(req,resp);
             } catch (IOException | ServletException e) {
@@ -142,7 +141,7 @@ public class FuncionarioServlet extends HttpServlet {
         
         try {
             funcionarioFacade.atulaizarFuncionario(funcionario);
-            String url = "/funcionario/buscarFuncionario.jsp";
+            String url = "/SenacToys/funcionario/buscarFuncionario.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(req,resp);
         } catch (IOException e) {
@@ -156,7 +155,7 @@ public class FuncionarioServlet extends HttpServlet {
         
         try {
             funcionarioFacade.deletarFuncionario(req.getParameter("cpfFuncionario"));
-            String url = "/funcionario/buscarFuncionario.jsp";
+            String url = "/SenacToys/funcionario/buscarFuncionario.jsp";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
             dispatcher.forward(req,resp);
         } catch (IOException | ServletException e) {
