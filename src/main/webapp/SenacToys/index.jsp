@@ -13,8 +13,11 @@
 
             <nav class="container menu">
                 <ul>
-                    <li><a href="cliente/clientes.jsp">Clientes</a></li>
-                    <li><a href="funcionario/funcionarios.jsp">Funcionarios</a></li>
+                    <li><a href="${pageContext.request.contextPath}cliente/clientes.jsp">Clientes</a></li>
+                    <c:if test="${sessionScope.usuario.isAdmin()}">
+                        <li><a href="${pageContext.request.contextPath}funcionario/funcionarios.jsp">Funcionarios</a></li>
+                    </c:if>
+                    
                 </ul>
             </nav>
         </div>

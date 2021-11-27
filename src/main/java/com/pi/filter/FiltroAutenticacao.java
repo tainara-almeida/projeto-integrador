@@ -5,6 +5,7 @@
  */
 package com.pi.filter;
 
+import com.pi.entities.Acesso;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -50,6 +51,14 @@ public class FiltroAutenticacao implements Filter {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/login.jsp");
         }
 
+        Acesso usuarioSistema = (Acesso) usuario;
+        String url = httpServletRequest.getRequestURI();
+        System.out.println(url);
+        
+        /*if(url.contains("/SenacToys/") && !usuarioSistema.isAdmin()){
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/login.jsp");
+        }*/
+        
 
     }    
     

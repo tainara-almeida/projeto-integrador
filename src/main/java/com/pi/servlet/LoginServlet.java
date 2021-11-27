@@ -5,8 +5,9 @@
  */
 package com.pi.servlet;
 
-import com.pi.dao.UsuarioDaoImpl;
-import com.pi.entities.Usuario;
+import com.pi.dao.AcessoDaoImpl;
+import com.pi.entities.Acesso;
+import com.pi.uteis.Criptografia;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,10 +39,10 @@ public class LoginServlet extends HttpServlet {
         String nomeUsuario = req.getParameter("nomeUsuario");
         String senhaUsuario = req.getParameter("senhaUsuario");
         
-        Usuario user = UsuarioDaoImpl.getUsuario(nomeUsuario, senhaUsuario);
+        Acesso user = AcessoDaoImpl.getUsuario(nomeUsuario, senhaUsuario);
         
         if(user == null){
-            
+            resp.sendRedirect(req.getContextPath() + "/login.jsp?loginInvalido=true");
         }else{
             HttpSession sessao = req.getSession();
             sessao.setAttribute("usuario", user);

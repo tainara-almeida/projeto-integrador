@@ -17,6 +17,11 @@
         <div class="bg">
             <div>
                 <h1 class="title">Login</h1>
+                <c:if test="${param.loginInvalido != null}">
+                    <div class="alert alert-danger" role="alert">
+                        Usuário ou Senha inválidos!
+                    </div>
+                </c:if>
 
                 <form action="LoginServlet" method="POST">
                     <input type="hidden" name="_method" value="post"/>

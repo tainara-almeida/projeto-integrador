@@ -18,9 +18,7 @@
 
             <nav class="container menu">
                 <ul>
-                    <c:if test="${sessionScope.usuario.isAdmin()}">
-                        <li><a href="cadastro.jsp">Cadastrar Cliente</a></li>
-                    </c:if>
+                    <li><a href="cadastro.jsp">Cadastrar Cliente</a></li>
                     <li><a href="buscarCliente.jsp">Buscar Cliente</a></li>
                     <div><a href="${pageContext.request.contextPath}/SenacToys/index.jsp"><button class="btn btn-primary back">Voltar</button></a></div>
                 </ul>

@@ -16,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Estrutura implements Serializable{
+    private int codEstrutura;
     private Empresa empresa;
     private Setor setor;
     private Funcionario funcionario;
