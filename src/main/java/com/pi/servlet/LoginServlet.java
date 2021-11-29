@@ -39,14 +39,20 @@ public class LoginServlet extends HttpServlet {
         String nomeUsuario = req.getParameter("nomeUsuario");
         String senhaUsuario = req.getParameter("senhaUsuario");
         
-        Acesso user = AcessoDaoImpl.getUsuario(nomeUsuario, senhaUsuario);
+        Acesso user = AcessoDaoImpl.getUsuario(nomeUsuario);
+        
         
         if(user == null){
             resp.sendRedirect(req.getContextPath() + "/login.jsp?loginInvalido=true");
         }else{
-            HttpSession sessao = req.getSession();
-            sessao.setAttribute("usuario", user);
-            resp.sendRedirect(req.getContextPath() + "/SenacToys/index.jsp");
+            boolean senhaOk = Criptografia.verificarSenha(senhaUsuario, user.getSenha());
+            if(senhaOk){
+                HttpSession sessao = req.getSession();
+                sessao.setAttribute("usuario", user);
+                resp.sendRedirect(req.getContextPath() + "/SenacToys/index.jsp"); 
+            }else{
+                resp.sendRedirect(req.getContextPath() + "/login.jsp?loginInvalido=true");
+            }
         }
     }
 }

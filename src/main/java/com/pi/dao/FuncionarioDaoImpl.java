@@ -26,12 +26,12 @@ import java.util.logging.Logger;
 public class FuncionarioDaoImpl{
     
     static public void inserirFuncionario(Funcionario funcionario){
-        String query = "CALL SPI_FUNCIONARIO(?, ?, ?, ?, ?, ?);";
         Connection con = Conexao.getConexao();
         
         try{
+            String queryCadastroFuncionario = "CALL SPI_FUNCIONARIO(?, ?, ?, ?, ?, ?);";
             CallableStatement ps;
-            ps = con.prepareCall(query);
+            ps = con.prepareCall(queryCadastroFuncionario);
             ps.setString(1, funcionario.getNome());
             ps.setString(2, funcionario.getCpf());
             ps.setString(3, funcionario.getEmail());
@@ -39,6 +39,7 @@ public class FuncionarioDaoImpl{
             ps.setString(5, funcionario.getTelefone());
             ps.setString(6, funcionario.getEndereco());
             ps.execute();
+            Conexao.fecharConexao();
         }catch (SQLException ex) {
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

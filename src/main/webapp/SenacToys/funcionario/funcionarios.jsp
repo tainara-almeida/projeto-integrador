@@ -19,6 +19,7 @@
             <nav class="container menu">
                 <ul>
                     <li><a href="cadastro.jsp">Cadastrar Funcionario</a></li>
+                    <li><a href="${pageContext.request.contextPath}/SenacToys/funcionario/AcessoServlet">Cadastrar Acesso</a></li>
                     <li><a href="buscarFuncionario.jsp">Buscar Funcionario</a></li>
                     <div><a href="${pageContext.request.contextPath}/SenacToys/index.jsp"><button class="btn btn-primary back">Voltar</button></a></div>
                 </ul>

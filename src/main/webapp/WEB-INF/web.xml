@@ -20,6 +20,18 @@
         <servlet-name>ClienteServlet</servlet-name>
         <servlet-class>com.pi.servlet.ClienteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProdutoServlet</servlet-name>
+        <servlet-class>com.pi.servlet.ProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcessoServlet</servlet-name>
+        <servlet-class>com.pi.servlet.AcessoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VendaServlet</servlet-name>
+        <servlet-class>com.pi.servlet.VendaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FuncionarioServlet</servlet-name>
         <url-pattern>/SenacToys/funcionario/FuncionarioServlet</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
         <url-pattern>/SenacToys/cliente/ClienteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProdutoServlet</servlet-name>
+        <url-pattern>/SenacToys/produto/ProdutoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcessoServlet</servlet-name>
+        <url-pattern>/SenacToys/funcionario/AcessoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VendaServlet</servlet-name>
+        <url-pattern>/SenacToys/venda/VendaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

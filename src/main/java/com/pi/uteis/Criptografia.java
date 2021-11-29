@@ -21,4 +21,16 @@ public class Criptografia {
         BCrypt.Result resultado = BCrypt.verifyer().verify(senhaAberta.toCharArray(), senhaFechada);
         return resultado.verified;
     }
+    
+    public static void main(String[] args) {
+        String senha = "123456";
+        
+        String senhaCriptografada = gerarHashSenha(senha);
+        System.out.println(senhaCriptografada);
+        
+        if(verificarSenha(senha, senhaCriptografada)){
+            System.out.println("Senha Criptografada");
+        }
+        
+    }
 }

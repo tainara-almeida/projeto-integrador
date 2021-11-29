@@ -21,16 +21,17 @@ public class Acesso implements Serializable{
     private int codEstrutura;
     private String setor;
     private String nome;
+    private String senha;
     
     public boolean isAdmin(){
         return "ADMINISTRACAO".equalsIgnoreCase(this.setor);
     }
     
     public boolean isSeller(){
-        return "Vendedor".equalsIgnoreCase(this.setor);
+        return "VENDAS".equalsIgnoreCase(this.setor);
     }
     
     public boolean isManager(){
-        return "Gerente".equalsIgnoreCase(this.setor);
+        return "GERENCIA".equalsIgnoreCase(this.setor);
     }
 }

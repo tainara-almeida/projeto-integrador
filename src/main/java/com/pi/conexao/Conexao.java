@@ -16,6 +16,8 @@ import java.util.logging.Logger;
  * @author Tiago Scarton
  */
 public class Conexao {
+    
+    public static Connection CONEXAO;
         
         // CONEXAO COM MYSQL LOCAL
         static { // Design Patterns -> Singleton
@@ -34,15 +36,26 @@ public class Conexao {
             String url = "jdbc:mysql://127.0.0.1:3306/loja_brinquedos?useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
             String user = "root";
             String password = "123456";
-    
-            Connection con = null;
+
             try {
-                con = DriverManager.getConnection(url, user, password);
+                CONEXAO = DriverManager.getConnection(url, user, password);
             } catch (SQLException ex) {
                 Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return con;
+            return CONEXAO;
     
+        }
+        
+        public static void fecharConexao() throws SQLException {
+ 
+            try {
+                if(CONEXAO!=null){
+                    if(!CONEXAO.isClosed())
+                        CONEXAO.close();
+                }
+             } catch (SQLException e) {
+                Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
         
        /* // CONEXAO COM JAVADB

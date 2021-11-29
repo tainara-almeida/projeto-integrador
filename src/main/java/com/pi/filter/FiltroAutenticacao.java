@@ -55,9 +55,9 @@ public class FiltroAutenticacao implements Filter {
         String url = httpServletRequest.getRequestURI();
         System.out.println(url);
         
-        /*if(url.contains("/SenacToys/") && !usuarioSistema.isAdmin()){
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/login.jsp");
-        }*/
+        if(url.contains("/SenacToys/funcionario/") && !usuarioSistema.isAdmin()){
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/acessoNegado.jsp");
+        }
         
 
     }    

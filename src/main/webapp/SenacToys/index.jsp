@@ -14,9 +14,16 @@
             <nav class="container menu">
                 <ul>
                     <li><a href="${pageContext.request.contextPath}cliente/clientes.jsp">Clientes</a></li>
+                    
+                    <c:if test="${sessionScope.usuario.isAdmin() || sessionScope.usuario.isManager()}">
+                        <li><a href="${pageContext.request.contextPath}produto/produtos.jsp">Produtos</a></li>
+                    </c:if>
+                    
                     <c:if test="${sessionScope.usuario.isAdmin()}">
                         <li><a href="${pageContext.request.contextPath}funcionario/funcionarios.jsp">Funcionarios</a></li>
                     </c:if>
+                        
+                        <li><a href="${pageContext.request.contextPath}venda/vendas.jsp">Vendas</a></li>
                     
                 </ul>
             </nav>

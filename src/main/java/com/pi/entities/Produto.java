@@ -5,7 +5,6 @@
  */
 package com.pi.entities;
 
-import com.pi.enuns.Categoria;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Produto implements Serializable{
-    private Categoria categoria;
+    private int codProduto;
+    private String categoria;
     private String nome;
     private String descricao;
     private String classificacaoIdade;
