@@ -178,13 +178,13 @@ public class ProdutoDaoImpl {
     }
 
 
-    static public void deletarFuncionario(String cpf) {
-        String query = "delete from Funcionario where DC_CPF=?;";
+    static public void deletarProduto(String codProduto) {
+        String query = "CALL SPD_PRODUTO(?);";
         Connection con = Conexao.getConexao();
          try {
-             PreparedStatement ps = con.prepareStatement(query);
-             ps.setString(1, cpf);
-             ps.executeUpdate();
+             CallableStatement ps = con.prepareCall(query);
+             ps.setInt(1, Integer.parseInt(codProduto));
+             ps.execute();
          } catch (SQLException ex) {
              Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
          }

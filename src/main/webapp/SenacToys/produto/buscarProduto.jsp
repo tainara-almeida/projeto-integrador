@@ -13,12 +13,12 @@
         <title>Buscar Produtos</title>
         
         <script type="text/javascript">
-            var cpfRemocao;
-            function confirmarRemocao(nome, cpf) {
-                console.log("Confirmar exclusao ", nome, cpf);
-                cpfRemocao = cpf;
-                var paragrafoCliente = $("#campoTextoExclusao");
-                paragrafoCliente.html(nome + " - " + cpf);
+            var codRemoçao;
+            function confirmarRemocao(nome, codProduto) {
+                console.log("Confirmar exclusao ", nome, codProduto);
+                codRemoçao = codProduto;
+                var paragrafoProduto = $("#campoTextoExclusao");
+                paragrafoProduto.html(nome + " - " + codProduto);
                 
                 var modalConfirmacao = $("#modalExclusao");
                 modalConfirmacao.show();
@@ -30,11 +30,11 @@
             }
 
             function deletar() {
-                console.log("Excluindo cliente ", cpfRemocao);
+                console.log("Excluindo produto ", codRemoçao);
                 fecharModal();
-                var url = "ClienteServlet?cpfCliente=" + cpfRemocao + "&operacao=deletar";
+                var url = "ProdutoServlet?codProduto=" + codRemoçao + "&operacao=deletar";
                 $.ajax(url).done(function () {
-                    console.log("Cliente removido!");
+                    console.log("Produto removido!");
                     var alerta = $("#alerta");
                     alerta.css("display", "block");
                     setTimeout(function(){
@@ -42,7 +42,7 @@
                          location.reload();
                     }, 1000)
                 }).fail(function () {
-                    console.log("Erro ao remover o cliente!");
+                    console.log("Erro ao remover o produto!");
                 })
             }
 
@@ -80,7 +80,7 @@
                                 <h5 class="modal-title">Confirmar Exclusão</h5>                       
                             </div>
                             <div class="modal-body">
-                                <p>Confirmar exclusão do usuário abaixo?</p>
+                                <p>Confirmar exclusão do produto abaixo?</p>
                                 <p id="campoTextoExclusao"></p>
                             </div>
                             <div class="modal-footer">
@@ -112,7 +112,7 @@
                             <td>${produto.precoUnitario}</td>
                             <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
                             <td><a href="ProdutoServlet?codProduto=${produto.codProduto}&operacao=atualizar" class="btn btn-link">Atualizar</a></td>
-                            <td><button onclick="confirmarRemocao('${cliente.nome}', '${cliente.cpf}')" class="btn btn-link">Deletar</button></td>
+                            <td><button onclick="confirmarRemocao('${produto.nome}', '${produto.codProduto}')" class="btn btn-link">Deletar</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>

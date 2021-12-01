@@ -179,4 +179,17 @@ public class ProdutoServlet extends HttpServlet {
         
     }
     
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        try {
+            ProdutoDaoImpl.deletarProduto(req.getParameter("codProduto"));
+            String url = "/SenacToys/produto/buscarProduto.jsp";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(req,resp);
+        } catch (IOException | ServletException e) {
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
 }

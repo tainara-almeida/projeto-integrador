@@ -5,7 +5,6 @@
  */
 package com.pi.entities;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
