@@ -18,7 +18,7 @@
         <div class="bg">
             <div>
                 <h1>Operação realizada com sucesso!</h1>
-                <a href="${pageContext.request.contextPath}/index.js"><button class="btn btn-primary back">Voltar</button></a>
+                <a href="${pageContext.request.contextPath}/SenacToys/produto/produtos.jsp"><button class="btn btn-primary back">Voltar</button></a>
             </div>
         </div>
     </body>

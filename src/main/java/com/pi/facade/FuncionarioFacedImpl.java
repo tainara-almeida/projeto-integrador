@@ -20,28 +20,40 @@ public class FuncionarioFacedImpl {
     
     Formatador formatador = new Formatador();
     
-    public void cadastroFuncionario(Funcionario filtro){
+    public boolean cadastroFuncionario(Funcionario filtro){
+        boolean resposta = false;
         try{   
             FuncionarioDaoImpl.inserirFuncionario(filtro);
+            resposta = true;
         }catch(Exception e){
+            resposta = false;
            Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
+        return resposta;
     }
     
-    public void atulaizarFuncionario(Funcionario funcionario){
+    public boolean atulaizarFuncionario(Funcionario funcionario){
+        boolean resposta = false;
         try{
             FuncionarioDaoImpl.atualizarFuncionario(funcionario);
+            resposta = true;
         }catch(Exception e){
+            resposta = false;
             Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
+        return resposta;
     }
     
-    public void deletarFuncionario(String cpf){
+    public boolean deletarFuncionario(String cpf){
+        boolean resposta = false;
         try{
             FuncionarioDaoImpl.deletarFuncionario(cpf);
+            resposta = true;
         }catch(Exception e){
+            resposta = false;
             Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
+        return resposta;
     }
     
     public List<Funcionario> buscarFuncionarioPorNome(String nome) {

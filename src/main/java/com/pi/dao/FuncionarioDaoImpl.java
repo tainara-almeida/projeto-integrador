@@ -25,8 +25,9 @@ import java.util.logging.Logger;
  */
 public class FuncionarioDaoImpl{
     
-    static public void inserirFuncionario(Funcionario funcionario){
+    static public Boolean inserirFuncionario(Funcionario funcionario){
         Connection con = Conexao.getConexao();
+        Boolean resposta = false;
         
         try{
             String queryCadastroFuncionario = "CALL SPI_FUNCIONARIO(?, ?, ?, ?, ?, ?);";
@@ -39,10 +40,13 @@ public class FuncionarioDaoImpl{
             ps.setString(5, funcionario.getTelefone());
             ps.setString(6, funcionario.getEndereco());
             ps.execute();
+            resposta = true;
             Conexao.fecharConexao();
         }catch (SQLException ex) {
+            resposta = false;
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return resposta;
     }
 
     static public List<Funcionario> getFuncionarios() {
@@ -145,20 +149,24 @@ public class FuncionarioDaoImpl{
         return funcionarios;
     }
 
-    static public void deletarFuncionario(String cpf) {
+    static public Boolean deletarFuncionario(String cpf) {
         String query = "delete from Funcionario where DC_CPF=?;";
         Connection con = Conexao.getConexao();
-         try {
-             PreparedStatement ps = con.prepareStatement(query);
-             ps.setString(1, cpf);
-             ps.executeUpdate();
-         } catch (SQLException ex) {
-             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        Boolean resposta = false;
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, cpf);
+            ps.executeUpdate();
+            resposta = true;
+        } catch (SQLException ex) {
+            resposta = false;
+            Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resposta;
     }
 
     static public boolean atualizarFuncionario(Funcionario funcionario) {
-        boolean ok = true;
+        boolean resposta = true;
         String query = "UPDATE FUNCIONARIO SET NM_FUNCIONARIO=?, DC_EMAIL=?, DT_NASCIMENTO=?, DC_TELEFONE=?, DC_ENDERECO=? where DC_CPF=?;";
         Connection con = Conexao.getConexao();
          try {
@@ -172,8 +180,8 @@ public class FuncionarioDaoImpl{
             ps.executeUpdate();
          } catch (SQLException ex) {
              Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-             ok = false;
+             resposta = false;
          }
-         return ok;
+         return resposta;
     }
 }

@@ -107,12 +107,27 @@ public class FuncionarioServlet extends HttpServlet {
             funcionario.setEndereco(endereco);
 
             try {
-                funcionarioFacade.cadastroFuncionario(funcionario);
-
-                String url = "/SenacToys/funcionario/cadastro.jsp";
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-                dispatcher.forward(req,resp);
+                boolean resposta  = funcionarioFacade.cadastroFuncionario(funcionario);
+                
+                if(resposta){
+                    String sucesso = "/SenacToys/funcionario/sucesso.jsp";
+                    String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                    dispatcher.forward(req,resp);
+                }else{
+                    String erro = "/SenacToys/funcionario/erro.jsp";
+                    String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                    dispatcher.forward(req,resp);
+                }
             } catch (IOException | ServletException e) {
+                String erro = "/SenacToys/funcionario/erro.jsp";
+                String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                dispatcher.forward(req,resp);
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
             }
         }else{
@@ -140,11 +155,26 @@ public class FuncionarioServlet extends HttpServlet {
         funcionario.setEndereco(endereco);
         
         try {
-            funcionarioFacade.atulaizarFuncionario(funcionario);
-            String url = "/SenacToys/funcionario/buscarFuncionario.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(req,resp);
+            boolean resposta  = funcionarioFacade.atulaizarFuncionario(funcionario);
+            if(resposta){
+                    String sucesso = "/SenacToys/funcionario/sucesso.jsp";
+                    String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                    dispatcher.forward(req,resp);
+                }else{
+                    String erro = "/SenacToys/funcionario/erro.jsp";
+                    String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                    dispatcher.forward(req,resp);
+                }
         } catch (IOException e) {
+            String erro = "/SenacToys/funcionario/erro.jsp";
+            String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+            req.setAttribute("urlVoltar", urlVoltar);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+            dispatcher.forward(req,resp);
             Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         
@@ -154,11 +184,26 @@ public class FuncionarioServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         try {
-            funcionarioFacade.deletarFuncionario(req.getParameter("cpfFuncionario"));
-            String url = "/SenacToys/funcionario/buscarFuncionario.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(req,resp);
+            boolean resposta  = funcionarioFacade.deletarFuncionario(req.getParameter("cpfFuncionario"));
+            if(resposta){
+                    String sucesso = "/SenacToys/funcionario/sucesso.jsp";
+                    String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                    dispatcher.forward(req,resp);
+                }else{
+                    String erro = "/SenacToys/funcionario/erro.jsp";
+                    String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                    dispatcher.forward(req,resp);
+                }
         } catch (IOException | ServletException e) {
+            String erro = "/SenacToys/funcionario/erro.jsp";
+            String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+            req.setAttribute("urlVoltar", urlVoltar);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+            dispatcher.forward(req,resp);
             Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
         }
     }

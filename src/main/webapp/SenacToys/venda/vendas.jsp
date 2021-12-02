@@ -22,7 +22,7 @@
                         <li><a href="${pageContext.request.contextPath}/SenacToys/venda/VendaServlet">Cadastrar Venda</a></li>
                     </c:if>
                     <c:if test="${sessionScope.usuario.isAdmin() || sessionScope.usuario.isManager()}">
-                        <li><a href="relatorio">Relatórios</a></li>
+                        <li><a href="${pageContext.request.contextPath}/SenacToys/venda/relatorio.jsp">Relatórios</a></li>
                     </c:if>
                    
                     <div><a href="${pageContext.request.contextPath}/SenacToys/index.jsp"><button class="btn btn-primary back">Voltar</button></a></div>

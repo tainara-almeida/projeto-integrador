@@ -6,6 +6,7 @@
 package com.pi.servlet;
 
 import com.pi.entities.Cliente;
+import com.pi.facade.ClienteFacade;
 import com.pi.facade.ClienteFacadeImpl;
 import com.pi.uteis.Formatador2;
 import java.io.IOException;
@@ -25,8 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ClienteServlet extends HttpServlet {
 
-    ClienteFacadeImpl clienteFacade = new ClienteFacadeImpl();
-    Formatador2 formatar = new Formatador2();
+    ClienteFacade clienteFacade = new ClienteFacadeImpl();
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -107,12 +107,27 @@ public class ClienteServlet extends HttpServlet {
             cliente.setEndereco(endereco);
 
             try {
-                clienteFacade.cadastroCliente(cliente);
-
-                String url = "/SenacToys/cliente/cadastro.jsp";
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-                dispatcher.forward(req,resp);
+                Boolean resposta = clienteFacade.cadastroCliente(cliente);
+                if(resposta){
+                    String sucesso = "/SenacToys/cliente/sucesso.jsp";
+                    String urlVoltar = "/SenacToys/cliente/cadastro.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                    dispatcher.forward(req,resp);
+                }else{
+                    String erro = "/SenacToys/cliente/erro.jsp";
+                    String urlVoltar = "/SenacToys/cliente/cadastro.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                    dispatcher.forward(req,resp);
+                }
+                
             } catch (IOException | ServletException e) {
+                String erro = "/SenacToys/cliente/erro.jsp";
+                String urlVoltar = "/SenacToys/cliente/cadastro.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                dispatcher.forward(req,resp);
                 Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
             }
         }else{
@@ -140,12 +155,28 @@ public class ClienteServlet extends HttpServlet {
         cliente.setEndereco(endereco);
         
         try {
-            clienteFacade.atulaizarCliente(cliente);
-            String url = "/SenacToys/cliente/buscarCliente.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(req,resp);
+            Boolean resposta = clienteFacade.atualizarCliente(cliente);
+            if(resposta){
+                String sucesso = "/SenacToys/cliente/sucesso.jsp";
+                String urlVoltar = "/SenacToys/cliente/buscarCliente.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                dispatcher.forward(req,resp);
+            }else{
+                String erro = "/SenacToys/cliente/erro.jsp";
+                String urlVoltar = "/SenacToys/cliente/buscarCliente.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                dispatcher.forward(req,resp);
+            }
+            
         } catch (IOException e) {
-            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
+                String erro = "/SenacToys/cliente/erro.jsp";
+                String urlVoltar = "/SenacToys/cliente/buscarCliente.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                dispatcher.forward(req,resp);
+                Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         
     }
@@ -154,11 +185,28 @@ public class ClienteServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         try {
-            clienteFacade.deletarCliente(req.getParameter("cpfCliente"));
-            String url = "/SenacToys/cliente/buscarCliente.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(req,resp);
+            Boolean resposta = clienteFacade.deletarCliente(req.getParameter("cpfCliente"));
+            
+            if(resposta){
+                String sucesso = "/SenacToys/cliente/sucesso.jsp";
+                String urlVoltar = "/SenacToys/cliente/buscarCliente.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                dispatcher.forward(req,resp);
+            }else{
+                String erro = "/SenacToys/cliente/erro.jsp";
+                String urlVoltar = "/SenacToys/cliente/buscarCliente.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                dispatcher.forward(req,resp);
+            }
+            
         } catch (IOException | ServletException e) {
+            String erro = "/SenacToys/cliente/erro.jsp";
+            String urlVoltar = "/SenacToys/cliente/buscarCliente.jsp";
+            req.setAttribute("urlVoltar", urlVoltar);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+            dispatcher.forward(req,resp);
             Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, e);
         }
     }

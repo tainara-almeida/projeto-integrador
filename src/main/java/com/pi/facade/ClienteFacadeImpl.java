@@ -7,7 +7,6 @@ package com.pi.facade;
 
 import com.pi.dao.ClienteDaoImpl;
 import com.pi.entities.Cliente;
-import com.pi.uteis.Formatador;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,34 +15,48 @@ import java.util.logging.Logger;
  *
  * @author Andrew
  */
-public class ClienteFacadeImpl{
+public class ClienteFacadeImpl implements ClienteFacade{
     
-    Formatador formatador = new Formatador();
-    
-    public void cadastroCliente(Cliente filtro){
+    @Override
+    public Boolean cadastroCliente(Cliente filtro){
+        Boolean resposta = false;
         try{   
             ClienteDaoImpl.inserirCliente(filtro);
+            resposta = true;
         }catch(Exception e){
+            resposta = false;
            Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
+        return resposta;
     }
     
-    public void atulaizarCliente(Cliente cliente){
+    @Override
+    public Boolean atualizarCliente(Cliente cliente){
+        Boolean resposta = false;
         try{
             ClienteDaoImpl.atualizarCliente(cliente);
+            resposta = true;
         }catch(Exception e){
+            resposta = false;
             Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
+        return resposta;
     }
     
-    public void deletarCliente(String cpf){
+    @Override
+    public Boolean deletarCliente(String cpf){
+        Boolean resposta = false;
         try{
             ClienteDaoImpl.deletarCliente(cpf);
+            resposta = true;
         }catch(Exception e){
+            resposta = false;
             Logger.getLogger(ClienteFacadeImpl.class.getName()).log(Level.SEVERE, null, e);
         }
+        return resposta;
     }
     
+    @Override
     public List<Cliente> buscarClientePorNome(String nome) {
         try{
             return ClienteDaoImpl.getClientePorNome(nome);
@@ -53,6 +66,7 @@ public class ClienteFacadeImpl{
         return null;
     }
 
+    @Override
     public Cliente buscarClientePorCpf(String cpf) {
         try{
             return ClienteDaoImpl.getClientePorCPF(cpf);
@@ -62,6 +76,7 @@ public class ClienteFacadeImpl{
         return null;
     }
 
+    @Override
     public List<Cliente> buscarCliente() {
         try{
             return ClienteDaoImpl.getClientes();

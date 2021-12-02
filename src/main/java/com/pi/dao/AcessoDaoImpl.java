@@ -59,9 +59,9 @@ public class AcessoDaoImpl {
         return user;
     }
     
-    static public void inserirAcesso(String cpf, String login, String senha){
+    static public Boolean inserirAcesso(String cpf, String login, String senha){
         Connection con = Conexao.getConexao();
-        
+        Boolean resposta = false;
         try{
             String queryCadastroFuncionario = "INSERT INTO ACESSO(COD_ESTRUTURA, DC_LOGIN, DC_SENHA) \n" +
                                                 "VALUES (" +
@@ -79,14 +79,17 @@ public class AcessoDaoImpl {
             ps.setString(2, login);
             ps.setString(3, senha);
             ps.execute();
+            resposta = true;
         }catch (SQLException ex) {
+            resposta = false;
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return resposta;
     }
     
-    static public boolean inserirEstrutura(String cpf, String setor, String empresaCNPJ){
+    static public Boolean inserirEstrutura(String cpf, String setor, String empresaCNPJ){
         Connection con = Conexao.getConexao();
-        boolean cadastrado = false;
+        Boolean resposta = false;
         
         try{
             String queryCadastroFuncionario = "CALL SPI_ESTRUTURA(" +
@@ -99,11 +102,12 @@ public class AcessoDaoImpl {
             ps.setString(2, setor);
             ps.setString(3, cpf);
             ps.execute();
-            cadastrado = true;
+            resposta = true;
         }catch (SQLException ex) {
+            resposta = false;
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return cadastrado;
+        return resposta;
     }
     
     

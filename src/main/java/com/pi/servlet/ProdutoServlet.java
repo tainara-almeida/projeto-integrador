@@ -26,26 +26,6 @@ import javax.servlet.http.HttpSession;
  */
 public class ProdutoServlet extends HttpServlet {
     
-    
-    /*
-        String cpf = request.getParameter("cpf");
-
-        Cliente cliente = ClienteDAO.getCliente(Long.parseLong(cpf));
-
-        HttpSession sessao = request.getSession();
-        List<Cliente> listaClientes;
-        if (sessao.getAttribute("listaClientes") == null) {
-            listaClientes = new ArrayList<>();
-        } else {
-            listaClientes = (List<Cliente>) sessao.getAttribute("listaClientes");
-        }
-        if (!listaClientes.contains(cliente)) {
-            listaClientes.add(cliente);
-        }
-        
-        sessao.setAttribute("listaClientes", listaClientes);
-    */
-    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -134,12 +114,27 @@ public class ProdutoServlet extends HttpServlet {
             produto.setImgUrl(urlProduto);
             
             try {
-                ProdutoDaoImpl.inserirProduto(produto);
+                boolean resposta = ProdutoDaoImpl.inserirProduto(produto);
 
-                String url = "/SenacToys/produto/cadastro.jsp";
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-                dispatcher.forward(req,resp);
+                if(resposta){
+                    String sucesso = "/SenacToys/produto/sucesso.jsp";
+                    String urlVoltar = "/SenacToys/produto/cadastro.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                    dispatcher.forward(req,resp);
+                }else{
+                    String erro = "/SenacToys/produto/erro.jsp";
+                    String urlVoltar = "/SenacToys/produto/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                    dispatcher.forward(req,resp);
+                }
             } catch (IOException | ServletException e) {
+                String erro = "/SenacToys/produto/erro.jsp";
+                String urlVoltar = "/SenacToys/produto/funcionarios.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                dispatcher.forward(req,resp);
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
             }
         }else{
@@ -169,27 +164,31 @@ public class ProdutoServlet extends HttpServlet {
         produto.setImgUrl(urlProduto);
         
         try {
-            ProdutoDaoImpl.atualizarProduto(produto);
-            String url = "/SenacToys/produto/buscarProduto.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(req,resp);
+            boolean resposta = ProdutoDaoImpl.atualizarProduto(produto);
+            
+            if(resposta){
+                    String sucesso = "/SenacToys/produto/sucesso.jsp";
+                    String urlVoltar = "/SenacToys/produto/cadastro.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                    dispatcher.forward(req,resp);
+                }else{
+                    String erro = "/SenacToys/produto/erro.jsp";
+                    String urlVoltar = "/SenacToys/produto/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                    dispatcher.forward(req,resp);
+                }
+            
         } catch (IOException e) {
-            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
-        }
-        
-    }
-    
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        try {
-            ProdutoDaoImpl.deletarProduto(req.getParameter("codProduto"));
-            String url = "/SenacToys/produto/buscarProduto.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            String erro = "/SenacToys/produto/erro.jsp";
+            String urlVoltar = "/SenacToys/produto/funcionarios.jsp";
+            req.setAttribute("urlVoltar", urlVoltar);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
             dispatcher.forward(req,resp);
-        } catch (IOException | ServletException e) {
             Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
         }
+        
     }
     
 }

@@ -24,10 +24,10 @@ import java.util.logging.Logger;
  */
 public class ClienteDaoImpl{
     
-    static public void inserirCliente(Cliente cliente){
+    static public Boolean inserirCliente(Cliente cliente){
         String query = "CALL SPI_CLIENTE(?, ?, ?, ?, ?, ?);";
         Connection con = Conexao.getConexao();
-        
+        Boolean resposta = false;
         try{
             CallableStatement ps;
             ps = con.prepareCall(query);
@@ -38,9 +38,12 @@ public class ClienteDaoImpl{
             ps.setString(5, cliente.getTelefone());
             ps.setString(6, cliente.getEndereco());
             ps.execute();
+            resposta = true;
         }catch (SQLException ex) {
+            resposta = false;
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return resposta;
     }
 
     static public List<Cliente> getClientes() {
@@ -68,6 +71,7 @@ public class ClienteDaoImpl{
                 clientes.add(cliente);
             }
         } catch (SQLException ex) {
+            clientes = null;
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return clientes;
@@ -102,6 +106,7 @@ public class ClienteDaoImpl{
             }
         
         } catch (SQLException ex) {
+            cliente = null;
             Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cliente;
@@ -144,20 +149,24 @@ public class ClienteDaoImpl{
 
     }
 
-    static public void deletarCliente(String cpf) {
+    static public Boolean deletarCliente(String cpf) {
         String query = "delete from CLIENTE where DC_CPF=?;";
         Connection con = Conexao.getConexao();
+        Boolean resposta = false;
          try {
              PreparedStatement ps = con.prepareStatement(query);
              ps.setString(1, cpf);
              ps.executeUpdate();
+             resposta = true;
          } catch (SQLException ex) {
+             resposta = false;
              Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
          }
+         return resposta;
     }
 
-    static public boolean atualizarCliente(Cliente cliente) {
-        boolean ok = true;
+    static public Boolean atualizarCliente(Cliente cliente) {
+        Boolean resposta = true;
         String query = "UPDATE CLIENTE SET NM_CLIENTE=?, DC_EMAIL=?, DT_NASCIMENTO=?, DC_TELEFONE=?, DC_ENDERECO=? where DC_CPF=?;";
         Connection con = Conexao.getConexao();
          try {
@@ -171,8 +180,8 @@ public class ClienteDaoImpl{
             ps.executeUpdate();
          } catch (SQLException ex) {
              Logger.getLogger(ClienteDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-             ok = false;
+             resposta = false;
          }
-         return ok;
+         return resposta;
     }
 }

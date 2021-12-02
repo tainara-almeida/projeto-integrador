@@ -10,7 +10,6 @@ import com.pi.dao.FuncionarioDaoImpl;
 import com.pi.entities.Funcionario;
 import com.pi.uteis.Criptografia;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,16 +37,36 @@ public class AcessoServlet extends HttpServlet {
             
 
             try {
-                boolean estruturaOk = AcessoDaoImpl.inserirEstrutura(cpf, setor, empresaCNPJ);
+                boolean resposta = AcessoDaoImpl.inserirEstrutura(cpf, setor, empresaCNPJ);
                 
-                if(estruturaOk){
-                    AcessoDaoImpl.inserirAcesso(cpf, login, senha);
+                if(resposta){
+                    boolean respostaAcesso = AcessoDaoImpl.inserirAcesso(cpf, login, senha);
+                    if(respostaAcesso){
+                        String sucesso = "/SenacToys/funcionario/sucesso.jsp";
+                        String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                        req.setAttribute("urlVoltar", urlVoltar);
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(sucesso);
+                        dispatcher.forward(req,resp);
+                    }else{
+                        String erro = "/SenacToys/funcionario/erro.jsp";
+                        String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                        req.setAttribute("urlVoltar", urlVoltar);
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                        dispatcher.forward(req,resp);
+                    }
+                }else{
+                    String erro = "/SenacToys/funcionario/erro.jsp";
+                    String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                    req.setAttribute("urlVoltar", urlVoltar);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                    dispatcher.forward(req,resp);
                 }
-
-                String url = "/SenacToys/funcionario/cadastroAcesso.jsp";
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-                dispatcher.forward(req,resp);
             } catch (IOException | ServletException e) {
+                String erro = "/SenacToys/funcionario/erro.jsp";
+                String urlVoltar = "/SenacToys/funcionario/funcionarios.jsp";
+                req.setAttribute("urlVoltar", urlVoltar);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(erro);
+                dispatcher.forward(req,resp);
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, e);
             }
         }else{

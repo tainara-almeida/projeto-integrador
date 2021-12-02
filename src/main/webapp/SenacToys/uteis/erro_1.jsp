@@ -9,16 +9,14 @@
 <!DOCTYPE html>
 <html>
     <c:import url="../uteis/header.jsp"/>
-
     <head>
-        <title>Sucesso</title>
+        <title>Erro</title>
     </head>
-
     <body class="container">
         <div class="bg">
             <div>
-                <h1>Operação realizada com sucesso!</h1>
-                <a href="${pageContext.request.contextPath}/index.js"><button class="btn btn-primary back">Voltar</button></a>
+                <h1>Erro na operação, tente novamente!</h1>
+                <a href="${pageContext.request.contextPath}/index.jsp"><button class="back">Voltar</button></a>
             </div>
         </div>
     </body>

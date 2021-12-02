@@ -25,9 +25,9 @@ import java.util.logging.Logger;
  */
 public class ProdutoDaoImpl {
     
-    static public void inserirProduto(Produto produto){
+    static public boolean inserirProduto(Produto produto){
         Connection con = Conexao.getConexao();
-        
+        boolean resposta = false;
         try{
             String queryCadastroProduto = "CALL SPI_PRODUTO(?, ?, ?, ?, ?, ?);";
             CallableStatement ps;
@@ -39,10 +39,13 @@ public class ProdutoDaoImpl {
             ps.setDouble(5, produto.getPrecoUnitario());
             ps.setString(6, produto.getImgUrl());
             ps.execute();
+            resposta = true;
             Conexao.fecharConexao();
         }catch (SQLException ex) {
+            resposta = false;
             Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return resposta;
     }
 
     static public List<Produto> getProdutos() {
@@ -178,20 +181,24 @@ public class ProdutoDaoImpl {
     }
 
 
-    static public void deletarProduto(String codProduto) {
-        String query = "CALL SPD_PRODUTO(?);";
+    static public boolean deletarFuncionario(String cpf) {
+        boolean resposta = false;
+        String query = "delete from Funcionario where DC_CPF=?;";
         Connection con = Conexao.getConexao();
          try {
-             CallableStatement ps = con.prepareCall(query);
-             ps.setInt(1, Integer.parseInt(codProduto));
-             ps.execute();
+             PreparedStatement ps = con.prepareStatement(query);
+             ps.setString(1, cpf);
+             ps.executeUpdate();
+             resposta = true;
          } catch (SQLException ex) {
+             resposta = false;
              Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
          }
+         return resposta;
     }
 
     static public boolean atualizarProduto(Produto produto) {
-        boolean ok = true;
+        boolean resposta = true;
         String query = "UPDATE PRODUTO SET DC_CATEGORIA_PRODUTO=?, NM_PRODUTO=?, DC_PRODUTO=?, DC_CLASSIFICACAO_IDADE=?, VL_PRECO_UNITARIO=?, DC_IMG_URL=?  WHERE COD_PRODUTO=?;";
         Connection con = Conexao.getConexao();
          try {
@@ -206,8 +213,8 @@ public class ProdutoDaoImpl {
             ps.executeUpdate();
          } catch (SQLException ex) {
              Logger.getLogger(FuncionarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-             ok = false;
+             resposta = false;
          }
-         return ok;
+         return resposta;
     }
 }
