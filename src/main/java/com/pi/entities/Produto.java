@@ -17,6 +17,7 @@ import lombok.Setter;
 @Setter
 public class Produto implements Serializable{
     private int codProduto;
+    private int quantidade;
     private String categoria;
     private String nome;
     private String descricao;
