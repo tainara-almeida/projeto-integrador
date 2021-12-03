@@ -16,10 +16,41 @@
     
     <body class="container">
         <div class="bg">
-        <div class="container">
-                <div>
-                    <div></div>
-                    <table id="tb1" class="table">
+            <div>
+                <table id="tb1" class="table" style="padding-top: 5rem">
+                <thead>
+                    <td>Código</td>
+                    <td>Nome</td>
+                    <td>Categoria</td>
+                    <td>Idade</td>
+                    <td>Descrição</td>
+                    <td>Preço</td>
+                    <td>Imagem</td>
+                    <td></td>
+                </thead>
+                    <tbody>
+                        <c:forEach var="produto" items="${listaProdutos}">
+                            <tr>
+                                <td>${produto.codProduto}</td>
+                                <td>${produto.nome}</td>
+                                <td>${produto.categoria}</td>
+                                <td>${produto.classificacaoIdade}</td>
+                                <td>${produto.descricao}</td>
+                                <td>${produto.precoUnitario}</td>
+                                <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
+                                <td><input type="checkbox" name="sel" /></td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        
+            <div>
+                <button type="button" id="importar" class="btn btn-primary back">Importar</button>
+            </div>
+            <div>
+                <<form action="action">
+                    <table id="tb2" class="table" style="width: auto">
                     <thead>
                         <td>Código</td>
                         <td>Nome</td>
@@ -28,56 +59,22 @@
                         <td>Descrição</td>
                         <td>Preço</td>
                         <td>Imagem</td>
-                        <td></td>
+                        <td>Qtd</td>
                     </thead>
                         <tbody>
-                            <c:forEach var="produto" items="${listaProdutos}">
-                                <tr>
-                                    <td>${produto.codProduto}</td>
-                                    <td>${produto.nome}</td>
-                                    <td>${produto.categoria}</td>
-                                    <td>${produto.classificacaoIdade}</td>
-                                    <td>${produto.descricao}</td>
-                                    <td>${produto.precoUnitario}</td>
-                                    <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
-                                    <td><input type="checkbox" name="sel" /></td>
-                                </tr>
-                            </c:forEach>
+                            <tr>
+                                <td>${produto.codProduto}</td>
+                                <td>${produto.nome}</td>
+                                <td>${produto.categoria}</td>
+                                <td>${produto.classificacaoIdade}</td>
+                                <td>${produto.descricao}</td>
+                                <td>${produto.precoUnitario}</td>
+                                <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
+                                <td>${produto.quantidade}</td>
+                            </tr>
                         </tbody>
                     </table>
-                </div>
-        
-            <div>
-                <button type="button" id="importar" class="btn btn-primary back">Importar</button>
-            </div>
-                <div class="row g-0">
-                    <<form action="action">
-                        <table id="tb2" class="table">
-                        <thead>
-                            <td>Código</td>
-                            <td>Nome</td>
-                            <td>Categoria</td>
-                            <td>Idade</td>
-                            <td>Descrição</td>
-                            <td>Preço</td>
-                            <td>Imagem</td>
-                            <td>Qtd</td>
-                        </thead>
-                            <tbody>
-                                <tr>
-                                    <td>${produto.codProduto}</td>
-                                    <td>${produto.nome}</td>
-                                    <td>${produto.categoria}</td>
-                                    <td>${produto.classificacaoIdade}</td>
-                                    <td>${produto.descricao}</td>
-                                    <td>${produto.precoUnitario}</td>
-                                    <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
-                                    <td>${produto.quantidade}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </body>
