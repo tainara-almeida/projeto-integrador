@@ -17,7 +17,7 @@
     <body class="container">
         <div class="bg">
             <div>
-                <table id="tb1" class="table" style="padding-top: 5rem">
+                <table id="tb1" class="table" style="padding-top: 4rem">
                 <thead>
                     <td>Código</td>
                     <td>Nome</td>
