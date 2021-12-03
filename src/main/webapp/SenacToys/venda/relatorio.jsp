@@ -17,7 +17,7 @@
     <body class="container">
         <div class="bg">
             <div>
-                <table id="tb1" class="table" style="padding-top: 4rem">
+                <table id="tb1" class="table">
                 <thead>
                     <td>Código</td>
                     <td>Nome</td>
@@ -48,9 +48,9 @@
             <div>
                 <button type="button" id="importar" class="btn btn-primary back">Importar</button>
             </div>
-            <div>
-                <<form action="action">
-                    <table id="tb2" class="table" style="width: auto">
+            <div class="bg">
+                <form action="action">
+                    <table id="tb2" class="table">
                     <thead>
                         <td>Código</td>
                         <td>Nome</td>

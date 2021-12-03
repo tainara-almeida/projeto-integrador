@@ -34,18 +34,19 @@ nav.menu ul {
     background-color: #7b007e;
     border-radius: 25px;
     width: 100%;
-    margin: 0;
+    margin: 20px;
+    padding: 20px;
 }
 
 table{
     overflow-y: scroll;
-    width: 66%;
+    width: auto;
     margin: auto;
     text-align:left
 }
 
 .bg div {
-    width: 66%;
+    width: auto;
     margin: auto;
     text-align:left
 }
@@ -63,7 +64,7 @@ table{
 }
 
 .bg form input::placeholder {
-    color: #fff;
+    color: #000;
 }
 
 .bg form button, .back {
