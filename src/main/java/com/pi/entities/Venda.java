@@ -5,10 +5,7 @@
  */
 package com.pi.entities;
 
-import com.pi.enuns.StatusVenda;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
