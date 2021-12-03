@@ -27,7 +27,7 @@ public class VendaServlet extends HttpServlet {
         List<Produto> listaProdutos = ProdutoDaoImpl.getProdutos();
         req.setAttribute("listaProdutos", listaProdutos);
         
-         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SenacToys/venda/relatorio.jsp");
+         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/SenacToys/venda/cadastro.jsp");
          requestDispatcher.forward(req, resp);
             
     }

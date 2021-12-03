@@ -4,6 +4,8 @@
     Author     : Andrew
 --%>
 
+<%@page import="com.pi.entities.Produto"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,95 +14,45 @@
 
     <head>
         <title>Cadastro de Venda</title>
-        <script>
-                    (function($) {
-                        remove = function(item) {
-                          var tr = $(item).closest('tr');
-
-                          tr.fadeOut(400, function() {
-                            tr.remove();  
-                          });
-
-                          return false;
-                        }
-                      })(jQuery);
-                    (function($) {
-                        AddTableRow = function() {
-
-                          var newRow = $("<tr>");
-                          var cols = "";
-
-                          cols += '<td>&nbsp;</td>';
-                          cols += '<td>&nbsp;</td>';
-                          cols += '<td>&nbsp;</td>';
-                          cols += '<td>${produto.precoUnitario}</td>';
-                          cols += '<td>&nbsp;</td>';
-                          cols += '<td>';
-                          cols += '<button onclick="remove(this)" type="button" class="btn btn-primary">Remover</button>';
-                          cols += '</td>';
-
-                          newRow.append(cols);
-                          $("#products-table").append(newRow);
-
-                          return false;
-                        };
-                      })(jQuery);
-                </script>
     </head>
+    
     <body class="container">
-        <div class="bg">
-            <h1 class="title">Vendas</h1>
-            <div class="row g-0">
-                <table  class="table col-9">
-                    <thead>
-                        <td>Código</td>
-                        <td>Nome</td>
-                        <td>Descrição</td>
-                        <td>Preço</td>
-                        <td>Imagem</td>
-                        <td>Ação</td>
-                    </thead>
+        <div>
+            <div class="bg">
+                <table id="tb1" class="table">
+                <thead>
+                    <td>Código</td>
+                    <td>Nome</td>
+                    <td>Preço</td>
+                    <td>Imagem</td>
+                </thead>
                     <tbody>
-                        <form>
-                            <c:forEach var="produto" items="${listaProdutos}">
-                                <tr>
-                                    <td>${produto.codProduto}</td>
-                                    <td>${produto.nome}</td>
-                                    <td>${produto.descricao}</td>
-                                    <td>${produto.precoUnitario}</td>
-                                    <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
-                                    <td><button onclick="AddTableRow()" type="button" class="btn btn-primary">Adicionar Produto</button></td>
-                                </tr>
-                            </c:forEach>
-                        </form>
-                    </tbody>
-                </table>
-            </div>
-                
-            <div class="row g-0">
-                <table  class="table col-9" id="products-table">
-                    <thead>
-                        <td>Código</td>
-                        <td>Nome</td>
-                        <td>Descrição</td>
-                        <td>Preço</td>
-                        <td>Imagem</td>
-                        <td>Ação</td>
-                    </thead>
-                    <tbody>
-                        <form>
+                        <c:forEach var="produto" items="${listaProdutos}">
                             <tr>
                                 <td>${produto.codProduto}</td>
                                 <td>${produto.nome}</td>
-                                <td>${produto.descricao}</td>
-                                <td>${produto.precoUnitario}</td>
+                                <td id="preco">${produto.precoUnitario}</td>
                                 <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
                             </tr>
-                        </form>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
-                <a href="${pageContext.request.contextPath}/SenacToys/venda/vendas.jsp"><button class="btn btn-primary back">Voltar</button></a>
+        
+            <div class="bg">
+                <form action="VendaServlet" method="POST">
+                    <input type="hidden" name="_method" value="post"/>
+                    <input type="text" name="codCliente" value="${cliente.codCliente}" placeholder="Código Cliente"
+                            required class="form-control"/>
+                    <input type="text" name="codProduto" value="${produto.codProduto}" placeholder="Código do produto"
+                        required class="form-control"/>
+                    <input type="text" name="dataVenda" value="${venda.dataVenda}" placeholder="Data da venda"
+                        required class="form-control"/>
+                    <input type="text" name="quantidade" value="${produto.quantidade}" placeholder="Quantidade"
+                        required class="form-control"/>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
             </div>
+        </div>
     </body>
 </html>
