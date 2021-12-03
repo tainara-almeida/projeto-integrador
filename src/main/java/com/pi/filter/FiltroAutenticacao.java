@@ -59,7 +59,17 @@ public class FiltroAutenticacao implements Filter {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/acessoNegado.jsp");
         }
         
-
+        if(url.contains("/SenacToys/produto/cadastro.jsp") && !(usuarioSistema.isAdmin() || usuarioSistema.isManager())){
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/acessoNegado.jsp");
+        }
+        
+        if(url.contains("/SenacToys/venda/relatorio.jsp") && !(usuarioSistema.isAdmin() || usuarioSistema.isManager())){
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/acessoNegado.jsp");
+        }
+        
+        if(url.contains("/SenacToys/venda/cadastro.jsp") && !(usuarioSistema.isAdmin() || usuarioSistema.isSeller())){
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() +  "/acessoNegado.jsp");
+        }
     }    
     
     private void doAfterProcessing(ServletRequest request, ServletResponse response)

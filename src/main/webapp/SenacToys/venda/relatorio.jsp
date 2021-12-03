@@ -18,38 +18,47 @@
     
     <body class="container">
         <div class="bg">
+
             <div>
-                <table id="tb1" class="table">
-                <thead>
-                    <td>Código</td>
-                    <td>Nome</td>
-                    <td>Categoria</td>
-                    <td>Idade</td>
-                    <td>Descrição</td>
-                    <td>Preço</td>
-                    <td>Imagem</td>
-                </thead>
-                    <tbody>
-                        <c:forEach var="produto" items="${listaProdutos}">
-                            <tr>
-                                <td>${produto.codProduto}</td>
-                                <td>${produto.nome}</td>
-                                <td>${produto.categoria}</td>
-                                <td>${produto.classificacaoIdade}</td>
-                                <td>${produto.descricao}</td>
-                                <td id="preco">${produto.precoUnitario}</td>
-                                <td><img src="${produto.imgUrl}" alt="Imagem" height="50" width="50"/></td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        
-            <div class="bg">
-                <form action="FuncionarioServlet" method="POST">
-                    
+                <h1>Relatórios</h1>
+                <form action="RelatorioServlet" method="GET">
+                    <input type="hidden" name="operacao" value="busca" />
+                    <input type="text" name="dataInicio" value="${relatorio.dataInicio}" placeholder="Data Inicio"
+                        required class="form-control"/><br/>
+                    <input type="text" name="dataFim" value="${relatorio.dataFim}" placeholder="Data Fim"
+                        required class="form-control"/><br/>
+                    <button type="submit" class="btn btn-primary">Buscar</button><br/>
                 </form>
-            </div>
+                
+                
+                <table  class="table">
+                <thead>
+                    <td>Código da venda</td>
+                    <td>Código do produto</td>
+                    <td>Nome do cliente</td>
+                    <td>Data da venda</td>
+                    <td>Nome do produto</td>
+                    <td>Quantidade</td>
+                    <td>Preço unitario</td>
+                    <td>Preço total</td>
+                </thead>
+                <tbody>
+                    <c:forEach var="relatorio" items="${listaRelatorio}">
+                        <tr>
+                            <td>${relatorio.codVenda}</td>
+                            <td>${relatorio.codProduto}</td>
+                            <td>${relatorio.nomeCliente}</td>
+                            <td>${relatorio.dataVenda}</td>
+                            <td>${relatorio.nomeProduto}</td>
+                            <td>${relatorio.quantidade}</td>
+                            <td>${relatorio.precoUnitario}</td>
+                            <td>${relatorio.valorTotalVenda}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <a href="${pageContext.request.contextPath}/SenacToys/venda/vendas.jsp"><button class="btn btn-primary back">Voltar</button></a>
         </div>
-    </body>
+    </div>
+</body>
 </html>

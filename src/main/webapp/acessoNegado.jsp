@@ -10,11 +10,12 @@
     <c:import url="SenacToys/uteis/header.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Acesso negado</title>
     </head>
     <body class="container">
 
         <div class="bg">
+            <h1>Acesso negado</h1>
             <div>
                 <nav class="container menu">
                    
@@ -23,7 +24,6 @@
                     </div>
                     
                     <ul>
-                        <img src="SenacToys/uteis/pica.jpg">
                         <li><a href="${pageContext.request.contextPath}/SenacToys/index.jsp">Voltar à Home</a></li>
                     </ul>
                 </nav>

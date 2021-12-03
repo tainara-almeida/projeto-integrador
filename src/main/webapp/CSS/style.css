@@ -25,6 +25,10 @@ nav.menu ul li a {
     margin: 1.2rem auto;
 }
 
+nav.meu{
+    background-color: #7b007e;
+}
+
 nav.menu ul {
     list-style: none;   
 }

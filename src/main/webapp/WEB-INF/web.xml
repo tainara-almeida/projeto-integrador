@@ -32,6 +32,10 @@
         <servlet-name>VendaServlet</servlet-name>
         <servlet-class>com.pi.servlet.VendaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RelatorioServlet</servlet-name>
+        <servlet-class>com.pi.servlet.RelatorioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FuncionarioServlet</servlet-name>
         <url-pattern>/SenacToys/funcionario/FuncionarioServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>VendaServlet</servlet-name>
         <url-pattern>/SenacToys/venda/VendaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RelatorioServlet</servlet-name>
+        <url-pattern>/SenacToys/venda/RelatorioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

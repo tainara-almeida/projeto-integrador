@@ -19,17 +19,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Venda implements Serializable{
-    private Long id;
-    private Date dataVenda;
-    private StatusVenda statusvenda;
-    private Cliente cliente;
-    private List<Pedido> pedido;
-    
-    public Double totalVenda(){
-        double total = 0;
-        for(Pedido pedidos : this.pedido){
-            total += pedidos.vatorTotalPedido();
-        }
-        return total;
-    }
+    private int codProduto;
+    private int codCliente;
+    private String dataVenda;
+    private int quantidade;
 }
